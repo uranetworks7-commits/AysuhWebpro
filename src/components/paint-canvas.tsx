@@ -44,13 +44,18 @@ export default function PaintCanvas() {
     contextRef.current = context;
   }, []);
 
-  useEffect(() => {
+  const updateContext = () => {
     const context = contextRef.current;
     if (!context) return;
-    context.strokeStyle = tool === 'eraser' ? "#FFFFFF" : color;
+    const isEraser = tool === 'eraser';
+    context.strokeStyle = isEraser ? "#FFFFFF" : color;
     context.lineWidth = brushSize;
     context.lineCap = "round";
-    context.fillStyle = tool === 'eraser' ? "#FFFFFF" : color;
+    context.fillStyle = isEraser ? "#FFFFFF" : color;
+  };
+
+  useEffect(() => {
+    updateContext();
   }, [color, brushSize, tool]);
 
   const takeSnapshot = () => {
@@ -76,6 +81,7 @@ export default function PaintCanvas() {
   }
 
   const startDrawing = (event: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>) => {
+    updateContext(); // Ensure context is up-to-date before drawing
     const { offsetX, offsetY } = getEventCoordinates(event);
     setIsDrawing(true);
     setStartPos({ x: offsetX, y: offsetY });
