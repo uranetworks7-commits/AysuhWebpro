@@ -1,7 +1,41 @@
+"use client";
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { LineChart, Palette, Youtube, ShoppingCart, Info } from 'lucide-react';
+
+const features = [
+  {
+    title: "Trading Simulator",
+    description: "Practice buying and selling in a simulated, real-time market environment.",
+    icon: LineChart,
+    href: "/dashboard/trading",
+  },
+  {
+    title: "Color Tools",
+    description: "Unleash your creativity with a canvas, various brushes, and color options.",
+    icon: Palette,
+    href: "/dashboard/color-tools",
+  },
+  {
+    title: "Ayush Tube",
+    description: "Explore a curated collection of videos on digital art and creativity.",
+    icon: Youtube,
+    href: "/dashboard/ayush-tube",
+  },
+    {
+    title: "Ayush Store",
+    description: "Browse a selection of the finest tools for your creative journey.",
+    icon: ShoppingCart,
+    href: "/dashboard/store",
+  },
+];
 
 export default function Home() {
+  const [showInfo, setShowInfo] = useState(false);
+
   return (
     <div className="flex flex-col min-h-screen">
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -11,7 +45,7 @@ export default function Home() {
           </Link>
           <nav className="flex items-center gap-4">
              <Button asChild variant="ghost">
-                <Link href="/about">About</Link>
+                <Link href="/dashboard/about">About</Link>
             </Button>
             <Button asChild>
                 <Link href="/login">Login</Link>
@@ -19,27 +53,49 @@ export default function Home() {
           </nav>
         </div>
       </header>
-      <main className="flex-grow container mx-auto p-4 md:p-6 flex items-center justify-center">
+      <main className="flex-grow container mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
         <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4">
                 Welcome to Ayush Canvas Hub
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
                 Your creative space for amazing projects. 
-                This is a static placeholder. No backend services are connected.
+                Explore a suite of tools designed for creativity and fun.
             </p>
             <div className="flex justify-center gap-4">
                 <Button asChild size="lg">
                     <Link href="/dashboard">Get Started</Link>
                 </Button>
-                <Button asChild size="lg" variant="outline">
-                    <Link href="/about">Learn More</Link>
+                <Button size="lg" variant="outline" onClick={() => setShowInfo(!showInfo)}>
+                    {showInfo ? "Hide Info" : "Show More Info"}
                 </Button>
             </div>
         </div>
+
+        {showInfo && (
+            <div className="w-full max-w-5xl mt-12">
+                <h2 className="text-3xl font-bold text-center mb-8">Features</h2>
+                <div className="grid gap-6 md:grid-cols-2">
+                    {features.map((feature) => (
+                        <Card key={feature.title} className="hover:shadow-lg transition-shadow">
+                            <CardHeader className="flex-row items-center gap-4">
+                                <feature.icon className="h-10 w-10 text-primary" />
+                                <CardTitle>{feature.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">{feature.description}</p>
+                                <Button asChild className="mt-4" variant="secondary">
+                                    <Link href={feature.href}>Check it out</Link>
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        )}
       </main>
       <footer className="py-4 text-center text-sm text-muted-foreground">
-        Ayush Hex Pro - Static Version
+        Ayush Hex Pro
       </footer>
     </div>
   );
