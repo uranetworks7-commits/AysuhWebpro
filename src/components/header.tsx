@@ -27,7 +27,7 @@ export default function Header() {
           onClick={() => setIsMobileMenuOpen(false)}
           className={cn(
             "flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-            pathname === link.href
+            pathname.startsWith(link.href) && link.href !== "/dashboard" || pathname === link.href
               ? "bg-primary/10 text-primary"
               : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           )}
