@@ -524,7 +524,7 @@ export default function ResumeMakerPage() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-1 md:grid-cols-3">
             <TabsTrigger value="resume">Resume Maker</TabsTrigger>
             <TabsTrigger value="business-card">Business Card Maker</TabsTrigger>
             <TabsTrigger value="emergency-card">Emergency Card</TabsTrigger>
