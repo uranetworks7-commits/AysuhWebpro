@@ -58,7 +58,7 @@ const features = [
 ];
 
 export default function Home() {
-  const [showInfo, setShowInfo] = useState(false);
+  const [showFeatures, setShowFeatures] = useState(false);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -90,13 +90,13 @@ export default function Home() {
                 <Button asChild size="lg">
                     <Link href="/dashboard">Get Started</Link>
                 </Button>
-                <Button size="lg" variant="outline" onClick={() => setShowInfo(!showInfo)}>
-                    {showInfo ? "Hide Functions" : "View all Functions"}
+                <Button size="lg" variant="outline" onClick={() => setShowFeatures(!showFeatures)}>
+                    {showFeatures ? "Hide Functions" : "View all Functions"}
                 </Button>
             </div>
         </div>
 
-        {showInfo && (
+        {showFeatures && (
             <div className="w-full max-w-5xl mt-12">
                 <h2 className="text-3xl font-bold text-center mb-8">Features</h2>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
