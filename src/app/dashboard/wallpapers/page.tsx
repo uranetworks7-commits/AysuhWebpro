@@ -17,14 +17,14 @@ interface Wallpaper {
 }
 
 const staticWallpapers: Wallpaper[] = [
-    { url: "https://placehold.co/400x225.png", name: "Misty Mountains", hint: "nature landscape" },
-    { url: "https://placehold.co/400x225.png", name: "Vibrant Abstract", hint: "abstract art" },
-    { url: "https://placehold.co/400x225.png", name: "Tokyo at Night", hint: "cityscape night" },
-    { url: "https://placehold.co/400x225.png", name: "Clean Geometry", hint: "minimalist design" },
-    { url: "https://placehold.co/400x225.png", name: "Cosmic Nebula", hint: "space galaxy" },
-    { url: "https://placehold.co/400x225.png", name: "Crashing Waves", hint: "ocean waves" },
-    { url: "https://placehold.co/400x225.png", name: "Lush Forest", hint: "forest trees" },
-    { url: "https://placehold.co/400x225.png", name: "Vintage Car", hint: "classic car" },
+    { url: "https://placehold.co/400x225", name: "Misty Mountains", hint: "nature landscape" },
+    { url: "https://placehold.co/400x225", name: "Vibrant Abstract", hint: "abstract art" },
+    { url: "https://placehold.co/400x225", name: "Tokyo at Night", hint: "cityscape night" },
+    { url: "https://placehold.co/400x225", name: "Clean Geometry", hint: "minimalist design" },
+    { url: "https://placehold.co/400x225", name: "Cosmic Nebula", hint: "space galaxy" },
+    { url: "https://placehold.co/400x225", name: "Crashing Waves", hint: "ocean waves" },
+    { url: "https://placehold.co/400x225", name: "Lush Forest", hint: "forest trees" },
+    { url: "https://placehold.co/400x225", name: "Vintage Car", hint: "classic car" },
 ];
 
 
@@ -67,7 +67,7 @@ export default function WallpapersPage() {
             <Card key={wallpaper.name} className="overflow-hidden group">
               <CardContent className="p-0 aspect-w-16 aspect-h-9">
                 <Image
-                  src={wallpaper.url}
+                  src={`${wallpaper.url}.png`}
                   alt={wallpaper.name}
                   width={400}
                   height={225}
@@ -78,7 +78,7 @@ export default function WallpapersPage() {
               <CardFooter className="p-3 bg-muted/50 flex justify-between items-center">
                 <p className="text-sm font-medium truncate flex-1 pr-2">{wallpaper.name}</p>
                 <Button asChild size="sm" variant="secondary">
-                  <a href={wallpaper.url} target="_blank" rel="noopener noreferrer" download={wallpaper.name}>
+                  <a href={`${wallpaper.url}.png`} target="_blank" rel="noopener noreferrer" download={wallpaper.name}>
                     <Download className="h-4 w-4 mr-2" />
                     Download
                   </a>

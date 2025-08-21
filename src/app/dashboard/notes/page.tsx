@@ -1,19 +1,7 @@
+
 "use client";
 
 import { useState, useEffect, FormEvent } from "react";
-import { useAuth } from "@/hooks/use-auth";
-import { db } from "@/lib/firebase";
-import {
-  collection,
-  addDoc,
-  query,
-  where,
-  onSnapshot,
-  deleteDoc,
-  doc,
-  orderBy,
-  serverTimestamp,
-} from "firebase/firestore";
 import type { Note } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,67 +10,48 @@ import { Trash2, FileText } from "lucide-react";
 import LoadingSpinner from "@/components/loading-spinner";
 import { useToast } from "@/hooks/use-toast";
 
+// Simplified Note type for local state
+interface LocalNote {
+    id: string;
+    text: string;
+    createdAt: Date;
+}
+
 export default function NotesPage() {
-  const { user } = useAuth();
   const { toast } = useToast();
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState<LocalNote[]>([]);
   const [newNote, setNewNote] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!user) return;
-
-    setIsLoading(true);
-    const notesCollection = collection(db, "users", user.uid, "notes");
-    const q = query(notesCollection, orderBy("createdAt", "desc"));
-
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const userNotes = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        text: doc.data().text,
-        createdAt: doc.data().createdAt?.toDate(),
-      }));
-      setNotes(userNotes);
-      setIsLoading(false);
-    }, (error) => {
-        console.error("Error fetching notes: ", error);
-        toast({variant: "destructive", title: "Error", description: "Could not fetch notes."})
-        setIsLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, [user, toast]);
+    // In a real app, you might load from localStorage here.
+    // For this example, we'll start with an empty list.
+    setIsLoading(false);
+  }, []);
 
   const handleAddNote = async (e: FormEvent) => {
     e.preventDefault();
-    if (newNote.trim() === "" || !user) return;
+    if (newNote.trim() === "") return;
     setIsSubmitting(true);
-    try {
-      const notesCollection = collection(db, "users", user.uid, "notes");
-      await addDoc(notesCollection, {
+    
+    // Simulate async operation
+    setTimeout(() => {
+      const note: LocalNote = {
+        id: Date.now().toString(),
         text: newNote,
-        createdAt: serverTimestamp(),
-      });
+        createdAt: new Date(),
+      };
+      setNotes((prevNotes) => [note, ...prevNotes]);
       setNewNote("");
       toast({ title: "Success", description: "Note added." });
-    } catch (error) {
-        console.error("Error adding note: ", error);
-        toast({variant: "destructive", title: "Error", description: "Could not add note."})
-    } finally {
-        setIsSubmitting(false);
-    }
+      setIsSubmitting(false);
+    }, 500);
   };
 
   const handleDeleteNote = async (id: string) => {
-    if (!user) return;
-    try {
-      await deleteDoc(doc(db, "users", user.uid, "notes", id));
-      toast({ title: "Success", description: "Note deleted." });
-    } catch (error) {
-        console.error("Error deleting note: ", error);
-        toast({variant: "destructive", title: "Error", description: "Could not delete note."})
-    }
+    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+    toast({ title: "Success", description: "Note deleted." });
   };
 
   return (
