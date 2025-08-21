@@ -34,7 +34,7 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <title>Ayush Canvas Hub</title>
         <meta name="description" content="Firebase-powered tools & storage" />
