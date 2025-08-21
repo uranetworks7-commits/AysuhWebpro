@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon } from 'lucide-react';
+import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles } from 'lucide-react';
 
 const features = [
   {
@@ -13,6 +13,12 @@ const features = [
     description: "Practice buying and selling in a simulated, real-time market environment.",
     icon: LineChart,
     href: "/dashboard/trading",
+  },
+  {
+    title: "Ayush AI",
+    description: "Chat with a loyal AI assistant created by Ayush.",
+    icon: Sparkles,
+    href: "/dashboard/ayush-ai",
   },
   {
     title: "Color Tools",
@@ -101,7 +107,7 @@ export default function Home() {
             <div className="w-full max-w-5xl mt-12">
                 <h2 className="text-3xl font-bold text-center mb-8">Features</h2>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    {features.map((feature) => (
+                    {features.sort((a,b) => a.title > b.title ? 1: -1).map((feature) => (
                         <Card key={feature.title} className="hover:shadow-lg transition-shadow">
                             <CardHeader className="flex-row items-center gap-4">
                                 <feature.icon className="h-10 w-10 text-primary" />
