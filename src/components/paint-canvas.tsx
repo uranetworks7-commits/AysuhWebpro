@@ -49,6 +49,7 @@ export default function PaintCanvas() {
     context.strokeStyle = tool === 'eraser' ? "#FFFFFF" : color;
     context.lineWidth = brushSize;
     context.lineCap = "round";
+    context.fillStyle = tool === 'eraser' ? "#FFFFFF" : color;
   }, [color, brushSize, tool]);
 
   const takeSnapshot = () => {
@@ -133,6 +134,11 @@ export default function PaintCanvas() {
   const setToolAndDeselectColor = (selectedTool: Tool) => {
     setTool(selectedTool);
   }
+  
+  const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setColor(e.target.value);
+    setTool('pencil');
+  };
 
   return (
     <Card className="overflow-hidden">
@@ -149,7 +155,7 @@ export default function PaintCanvas() {
       <CardFooter className="flex-wrap items-center gap-4 p-4 bg-muted/50 border-t">
         <div className="flex items-center gap-2">
             <Label htmlFor="color-picker">Color</Label>
-            <Input id="color-picker" type="color" value={color} onChange={(e) => {setColor(e.target.value); setTool('pencil')}} className="h-9 w-14 p-1" />
+            <Input id="color-picker" type="color" value={color} onChange={handleColorChange} className="h-9 w-14 p-1" />
         </div>
         <div className="flex items-center gap-2 flex-1 min-w-[150px]">
             <Label>Size ({brushSize})</Label>
