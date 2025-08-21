@@ -6,12 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
 const allVideos = [
-  { id: '4F4hsqRkCjU', title: 'The Collapse of a $32 Billion Crypto Empire | FTX Scam Explained' },
-  { id: 'YfK3r04i1J0', title: 'The Dark Reality of Fast Fashion | Dhruv Rathee' },
-  { id: '7oA_17D33jQ', title: 'The Adani Group Controversy | Explained' },
-  { id: 'Ox_i_tY2S3c', title: 'Is India Ready for Electric Cars? | Reality of EVs in India'},
-  { id: 'w_35sVbV_fE', title: 'The Booming Business of Online Scams in India'},
-  { id: 'j7a5E2_7i-A', title: 'The Hidden Brain drain in India | Indian Youth Migration'},
+  { id: 'dQw4w9WgXcQ', title: 'Never Gonna Give You Up' },
+  { id: '3JZ_D3ELwOQ', title: 'Lofi Girl - Lofi Hip Hop Radio' },
+  { id: 'jfKfPfyJRdk', title: 'lofi hip hop radio - beats to relax/study to' },
+  { id: 'M7lc1UVf-VE', title: 'Songs to sing in the shower' },
+  { id: 'hHW1oY26kxQ', title: 'Art ASMR' },
+  { id: 'W-fFHeTX70Q', title: 'lofi hip hop radio 📚 - beats to sleep/chill to' },
 ];
 
 export default function AyushTubePage() {
