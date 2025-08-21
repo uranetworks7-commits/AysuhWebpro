@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode } from 'lucide-react';
+import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode, Share2 } from 'lucide-react';
 
 const features = [
   {
@@ -33,9 +33,9 @@ const features = [
     href: "/dashboard/ayush-ai",
   },
   {
-    title: "Color Tools",
+    title: "Diagram & Mind Map",
     description: "Unleash your creativity with a canvas, various brushes, and color options.",
-    icon: Palette,
+    icon: Share2,
     href: "/dashboard/color-tools",
   },
   {

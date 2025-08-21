@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2 } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -68,15 +68,15 @@ export default function DashboardPage() {
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader className="flex-row items-center justify-between">
             <div className="space-y-1">
-              <CardTitle>Color Tools</CardTitle>
+              <CardTitle>Diagram & Mind Map</CardTitle>
               <CardDescription>Unleash your creativity.</CardDescription>
             </div>
-            <Palette className="h-8 w-8 text-primary" />
+            <Share2 className="h-8 w-8 text-primary" />
           </CardHeader>
           <CardContent>
-            <p>Use the paint canvas to draw, sketch, and create beautiful artwork.</p>
+            <p>Use the canvas to draw diagrams, sketch, and create beautiful artwork.</p>
             <Button asChild className="mt-4">
-              <Link href="/dashboard/color-tools">Open Color Tools</Link>
+              <Link href="/dashboard/color-tools">Open Diagram Tool</Link>
             </Button>
           </CardContent>
         </Card>

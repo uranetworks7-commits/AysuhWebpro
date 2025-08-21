@@ -1,4 +1,5 @@
 import Header from "@/components/header";
+import { Share2 } from "lucide-react";
 
 export default function DashboardLayout({
   children,
