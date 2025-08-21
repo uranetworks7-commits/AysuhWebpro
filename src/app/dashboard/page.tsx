@@ -100,31 +100,15 @@ export default function DashboardPage() {
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader className="flex-row items-center justify-between">
             <div className="space-y-1">
-              <CardTitle>QR Code Generator</CardTitle>
-              <CardDescription>Generate QR codes instantly.</CardDescription>
+              <CardTitle>Code Generators</CardTitle>
+              <CardDescription>Generate QR & Barcodes.</CardDescription>
             </div>
             <QrCode className="h-8 w-8 text-primary" />
           </CardHeader>
           <CardContent>
-            <p>Create a QR code from any text or URL and download it.</p>
+            <p>Create a QR code or barcode from any text or URL and download it.</p>
             <Button asChild className="mt-4">
-              <Link href="/dashboard/qr-code-generator">Open QR Generator</Link>
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow">
-          <CardHeader className="flex-row items-center justify-between">
-            <div className="space-y-1">
-              <CardTitle>Barcode Generator</CardTitle>
-              <CardDescription>Generate barcodes easily.</CardDescription>
-            </div>
-            <Barcode className="h-8 w-8 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <p>Create a standard barcode from your data and download it.</p>
-            <Button asChild className="mt-4">
-              <Link href="/dashboard/barcode-generator">Open Barcode Generator</Link>
+              <Link href="/dashboard/code-generator">Open Generators</Link>
             </Button>
           </CardContent>
         </Card>

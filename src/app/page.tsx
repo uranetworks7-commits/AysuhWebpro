@@ -75,16 +75,10 @@ const features = [
     href: "/dashboard/wallpapers",
   },
   {
-    title: "QR Code Generator",
-    description: "Generate a QR code from any text or URL instantly.",
+    title: "Code Generators",
+    description: "Generate a QR code or barcode from any text or URL instantly.",
     icon: QrCode,
-    href: "/dashboard/qr-code-generator",
-  },
-  {
-    title: "Barcode Generator",
-    description: "Create and download a barcode from your data.",
-    icon: Barcode,
-    href: "/dashboard/barcode-generator",
+    href: "/dashboard/code-generator",
   },
 ];
 
