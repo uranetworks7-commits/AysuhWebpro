@@ -1,7 +1,8 @@
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -28,6 +29,22 @@ export default function DashboardPage() {
             <p>You are here. This is the main landing page of the dashboard.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard">Go Home</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Typing Test</CardTitle>
+              <CardDescription>Check your typing skill.</CardDescription>
+            </div>
+            <Keyboard className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Test your typing speed and accuracy with this interactive tool.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/typing-test">Open Typing Test</Link>
             </Button>
           </CardContent>
         </Card>

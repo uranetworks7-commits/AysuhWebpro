@@ -5,9 +5,15 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles } from 'lucide-react';
+import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard } from 'lucide-react';
 
 const features = [
+  {
+    title: "Typing Speed Test",
+    description: "Test your typing speed and accuracy with our interactive tester.",
+    icon: Keyboard,
+    href: "/dashboard/typing-test",
+  },
   {
     title: "Trading Simulator",
     description: "Practice buying and selling in a simulated, real-time market environment.",
