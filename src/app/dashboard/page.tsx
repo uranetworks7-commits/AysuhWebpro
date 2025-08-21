@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom, Wallet, LineChart, Sparkles, HeartPulse, ImageIcon } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom, Wallet, LineChart, Sparkles, HeartPulse, ImageIcon, Calculator } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -205,6 +205,22 @@ export default function DashboardPage() {
             <p>Explore and download from a collection of beautiful wallpapers.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/wallpapers">Browse Wallpapers</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Math Practice</CardTitle>
+              <CardDescription>Sharpen your math skills.</CardDescription>
+            </div>
+            <Calculator className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Practice addition, subtraction, and multiplication with random problems.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/math-practice">Start Practicing</Link>
             </Button>
           </CardContent>
         </Card>

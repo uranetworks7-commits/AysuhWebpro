@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode, Share2, Atom, Wallet, HeartPulse } from 'lucide-react';
+import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode, Share2, Atom, Wallet, HeartPulse, Calculator } from 'lucide-react';
 
 const features = [
   {
@@ -91,6 +91,12 @@ const features = [
     description: "Track your income and expenses with a simple budget planner.",
     icon: Wallet,
     href: "/dashboard/budget-planner",
+  },
+  {
+    title: "Math Practice",
+    description: "Sharpen your math skills with randomly generated problems.",
+    icon: Calculator,
+    href: "/dashboard/math-practice",
   },
 ];
 
