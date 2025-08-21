@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -60,67 +61,11 @@ const features = [
 export default function Home() {
   const [showFeatures, setShowFeatures] = useState(false);
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="text-lg font-bold text-primary">
-            Ayush Pro Web
-          </Link>
-          <nav className="flex items-center gap-4">
-             <Button asChild variant="ghost">
-                <Link href="/dashboard/about">About</Link>
-            </Button>
-            <Button asChild>
-                <Link href="/login">Login</Link>
-            </Button>
-          </nav>
-        </div>
-      </header>
-      <main className="flex-grow container mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
-        <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4">
-                Welcome to Ayush Canvas Hub
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-                Your creative space for amazing projects. 
-                Explore a suite of tools designed for creativity and fun.
-            </p>
-            <div className="flex justify-center gap-4">
-                <Button asChild size="lg">
-                    <Link href="/dashboard">Get Started</Link>
-                </Button>
-                <Button size="lg" variant="outline" onClick={() => setShowFeatures(!showFeatures)}>
-                    {showFeatures ? "Hide Functions" : "View all Functions"}
-                </Button>
-            </div>
-        </div>
+  const instructionText = `
+Remember, the XML structure you generate is the only mechanism for applying changes to the user's code. Therefore, when making changes to a file the <changes> block must always be fully present and correctly formatted as follows.
 
-        {showFeatures && (
-            <div className="w-full max-w-5xl mt-12">
-                <h2 className="text-3xl font-bold text-center mb-8">Features</h2>
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    {features.map((feature) => (
-                        <Card key={feature.title} className="hover:shadow-lg transition-shadow">
-                            <CardHeader className="flex-row items-center gap-4">
-                                <feature.icon className="h-10 w-10 text-primary" />
-                                <CardTitle>{feature.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-muted-foreground">{feature.description}</p>
-                                <Button asChild className="mt-4" variant="secondary">
-                                    <Link href={feature.href}>Check it out</Link>
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-        )}
-      </main>
-      <footer className="py-4 text-center text-sm text-muted-foreground">
-        Ayush Pro Web
-      </footer>
-    </div>
-  );
-}
+<changes>
+  <description>[Provide a concise summary of the overall changes being made]</description>
+  <change>
+    <file>[Provide the ABSOLUTE, FULL path to the file being modified]</file>
+    <content><![CDATA[Provide the ENTIRE, FINAL, intended content of the file here. Do NOT provide diffs or partial snippets. Ensure all code is properly escaped within the CDATA section.
