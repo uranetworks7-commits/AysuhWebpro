@@ -13,12 +13,11 @@ export default function AboutPage() {
         </CardHeader>
         <CardContent>
           <p className="text-lg text-muted-foreground">
-            Ayush Hex Pro — Free Firebase-powered tools & storage.
+            Ayush Hex Pro — A Static Next.js Application.
           </p>
           <p className="mt-4">
-            This application is a demonstration of a full-stack web app built with Next.js and Firebase. 
-            It includes user authentication, cloud storage, a real-time database, and a responsive design, 
-            showcasing a modern web development workflow.
+            This application is a demonstration of a static front-end web app built with Next.js.
+            It showcases a responsive design and modern web development workflow without backend dependencies.
           </p>
         </CardContent>
       </Card>

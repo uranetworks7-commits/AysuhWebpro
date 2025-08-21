@@ -1,41 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Home, Paintbrush, Image, FileText, Info, LogOut, User, Menu, X } from "lucide-react";
-import { useAuth } from "@/hooks/use-auth";
+import { usePathname } from "next/navigation";
+import { Home, Info, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 const navLinks = [
   { href: "/dashboard", label: "Home", icon: Home },
-  { href: "/dashboard/paint", label: "Paint Tool", icon: Paintbrush },
-  { href: "/dashboard/wallpapers", label: "Wallpapers", icon: Image },
-  { href: "/dashboard/notes", label: "Notes", icon: FileText },
   { href: "/dashboard/about", label: "About", icon: Info },
 ];
 
 export default function Header() {
-  const { user, logout } = useAuth();
-  const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleLogout = async () => {
-    await logout();
-    router.push("/login");
-  };
-  
   const NavItems = () => (
     <>
       {navLinks.map((link) => (
@@ -67,21 +48,9 @@ export default function Header() {
           <NavItems />
         </nav>
         <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <User className="h-5 w-5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive focus:text-destructive">
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Logout</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+           <Button variant="outline" asChild>
+                <Link href="/">Exit Dashboard</Link>
+            </Button>
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">

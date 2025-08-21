@@ -1,61 +1,45 @@
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
-import {
-  Auth,
-  User,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { auth, db } from "@/lib/firebase";
 import type { LoginData, SignUpData } from "@/lib/types";
-import LoadingSpinner from "./loading-spinner";
+
+// Mock user type
+export type User = {
+    uid: string;
+    email: string;
+    displayName: string;
+} | null;
 
 export interface AuthContextType {
-  user: User | null;
+  user: User;
   loading: boolean;
-  login: (data: LoginData) => Promise<User | null>;
-  signup: (data: SignUpData) => Promise<User | null>;
+  login: (data: LoginData) => Promise<User>;
+  signup: (data: SignUpData) => Promise<User>;
   logout: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User>(null);
+  const [loading, setLoading] = useState(false); // Set to false as there's no auth check
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const login = async ({ email, password }: LoginData) => {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
+  const login = async ({ email }: LoginData): Promise<User> => {
+    // This is a mock login. In a real app, you'd validate.
+    const mockUser = { uid: 'mock-user-id', email: email, displayName: email.split('@')[0] };
+    setUser(mockUser);
+    return mockUser;
   };
 
-  const signup = async ({ username, email, password }: SignUpData) => {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const newUser = userCredential.user;
-    if (newUser) {
-      await setDoc(doc(db, "users", newUser.uid), {
-        username: username,
-        email: email,
-        createdAt: serverTimestamp(),
-      });
-    }
-    return newUser;
+  const signup = async ({ email, username }: SignUpData): Promise<User> => {
+     // This is a mock signup.
+    const mockUser = { uid: 'mock-user-id', email: email, displayName: username };
+    setUser(mockUser);
+    return mockUser;
   };
 
   const logout = async () => {
-    await signOut(auth);
+    setUser(null);
   };
 
   const value = {
@@ -65,14 +49,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signup,
     logout,
   };
-
-  if (loading) {
-    return (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <LoadingSpinner />
-      </div>
-    );
-  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
