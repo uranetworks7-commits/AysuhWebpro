@@ -41,60 +41,66 @@ const resumeSchema = z.object({
 
 type ResumeFormData = z.infer<typeof resumeSchema>;
 
-const ResumePreview = ({ getValues }: { getValues: () => ResumeFormData }) => {
+const ResumePreview = ({ getValues, isPreviewing }: { getValues: () => ResumeFormData, isPreviewing: boolean }) => {
   const values = getValues();
 
-  if (!values.fullName) return <div className="text-center text-muted-foreground p-8">Fill out the form to see a preview</div>;
+  if (!values.fullName && !isPreviewing) {
+    return (
+      <div className="text-center text-muted-foreground p-8">
+        Fill out the form to see a live preview of your resume.
+      </div>
+    );
+  }
 
   return (
-    <div className="p-8 bg-white text-black font-sans text-sm">
+    <div className="p-8 bg-white text-black font-sans text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold tracking-tight">{values.fullName || 'Your Name'}</h1>
-        <div className="flex justify-center items-center gap-4 text-xs text-gray-600 mt-2">
-            <div className="flex items-center gap-1"><Mail className="h-3 w-3" /><span>{values.email || 'your.email@example.com'}</span></div>
-            <div className="flex items-center gap-1"><Phone className="h-3 w-3" /><span>{values.phoneNumber || '(123) 456-7890'}</span></div>
-            <div className="flex items-center gap-1"><MapPin className="h-3 w-3" /><span>{values.address || 'Your City, State'}</span></div>
-            {values.linkedin && <div className="flex items-center gap-1"><Linkedin className="h-3 w-3" /><span>{values.linkedin}</span></div>}
+        <h1 className="text-4xl font-bold tracking-tight text-gray-800">{values.fullName || 'Your Name'}</h1>
+        <div className="flex justify-center items-center flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600 mt-2">
+            <div className="flex items-center gap-1.5"><Mail className="h-3 w-3" /><span>{values.email || 'your.email@example.com'}</span></div>
+            <div className="flex items-center gap-1.5"><Phone className="h-3 w-3" /><span>{values.phoneNumber || '(123) 456-7890'}</span></div>
+            <div className="flex items-center gap-1.5"><MapPin className="h-3 w-3" /><span>{values.address || 'Your City, State'}</span></div>
+            {values.linkedin && <div className="flex items-center gap-1.5"><Linkedin className="h-3 w-3" /><span>{values.linkedin}</span></div>}
         </div>
       </div>
       
       <div className="mb-4">
-        <h2 className="text-sm font-bold uppercase tracking-widest border-b-2 border-gray-300 pb-1 mb-2">Summary</h2>
-        <p className="text-gray-700">{values.summary || 'Professional summary about your skills and experience.'}</p>
+        <h2 className="text-sm font-bold uppercase tracking-widest border-b-2 border-gray-300 pb-1 mb-2 text-primary">Summary</h2>
+        <p className="text-gray-700 text-justify">{values.summary || 'A brief professional summary highlighting your key skills, experience, and career objectives. Tailor this to the job you are applying for to make a strong first impression.'}</p>
       </div>
 
       <div className="mb-4">
-        <h2 className="text-sm font-bold uppercase tracking-widest border-b-2 border-gray-300 pb-1 mb-2">Experience</h2>
+        <h2 className="text-sm font-bold uppercase tracking-widest border-b-2 border-gray-300 pb-1 mb-2 text-primary">Experience</h2>
         {values.experiences?.map((exp, index) => (
           <div key={index} className="mb-3">
             <div className="flex justify-between">
-              <h3 className="font-bold">{exp.title || 'Job Title'}</h3>
-              <p className="text-gray-600">{exp.startDate || 'Start'} - {exp.endDate || 'End'}</p>
+              <h3 className="font-bold text-gray-900">{exp.title || 'Job Title'}</h3>
+              <p className="text-gray-600 text-xs">{exp.startDate || 'Start Date'} - {exp.endDate || 'End Date'}</p>
             </div>
             <p className="italic text-gray-800">{exp.company || 'Company Name'}</p>
-            <p className="text-gray-700 mt-1 whitespace-pre-wrap">{exp.description || 'Description of your responsibilities and achievements.'}</p>
+            <p className="text-gray-700 mt-1 whitespace-pre-wrap text-justify">{exp.description || 'Describe your responsibilities and achievements in this role. Use bullet points or short paragraphs to highlight your contributions and skills.'}</p>
           </div>
         ))}
       </div>
 
       <div className="mb-4">
-        <h2 className="text-sm font-bold uppercase tracking-widest border-b-2 border-gray-300 pb-1 mb-2">Education</h2>
+        <h2 className="text-sm font-bold uppercase tracking-widest border-b-2 border-gray-300 pb-1 mb-2 text-primary">Education</h2>
         {values.education?.map((edu, index) => (
           <div key={index} className="mb-2">
              <div className="flex justify-between">
-                <h3 className="font-bold">{edu.degree || 'Degree'}</h3>
-                <p className="text-gray-600">{edu.gradYear || 'Year'}</p>
+                <h3 className="font-bold text-gray-900">{edu.degree || 'Degree or Certificate'}</h3>
+                <p className="text-gray-600 text-xs">{edu.gradYear || 'Year'}</p>
              </div>
-            <p className="italic text-gray-800">{edu.school || 'School Name'}</p>
+            <p className="italic text-gray-800">{edu.school || 'School or University Name'}</p>
           </div>
         ))}
       </div>
 
       <div>
-        <h2 className="text-sm font-bold uppercase tracking-widest border-b-2 border-gray-300 pb-1 mb-2">Skills</h2>
-        <div className="flex flex-wrap gap-2">
+        <h2 className="text-sm font-bold uppercase tracking-widest border-b-2 border-gray-300 pb-1 mb-2 text-primary">Skills</h2>
+        <div className="flex flex-wrap gap-2 mt-2">
           {values.skills?.map((skill, index) => (
-            <span key={index} className="bg-gray-200 text-gray-800 text-xs font-medium px-2.5 py-1 rounded-full">{skill.name || 'Skill'}</span>
+            <span key={index} className="bg-primary/10 text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">{skill.name || 'Skill'}</span>
           ))}
         </div>
       </div>
@@ -105,6 +111,7 @@ const ResumePreview = ({ getValues }: { getValues: () => ResumeFormData }) => {
 
 export default function ResumeMakerPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPreviewing, setIsPreviewing] = useState(false);
   const form = useForm<ResumeFormData>({
     resolver: zodResolver(resumeSchema),
     defaultValues: {
@@ -116,8 +123,9 @@ export default function ResumeMakerPage() {
       summary: '',
       experiences: [{ title: '', company: '', startDate: '', endDate: '', description: '' }],
       education: [{ school: '', degree: '', gradYear: '' }],
-      skills: [{ name: '' }],
+      skills: [{ name: 'React' }, { name: 'Next.js' }, { name: 'Tailwind CSS' }],
     },
+    mode: "onChange"
   });
 
   const resumePreviewRef = useRef<HTMLDivElement>(null);
@@ -134,16 +142,19 @@ export default function ResumeMakerPage() {
     try {
         const canvas = await html2canvas(input, {
           scale: 2, 
-          backgroundColor: '#ffffff' 
+          backgroundColor: '#ffffff',
+          useCORS: true,
         });
         const imgData = canvas.toDataURL('image/png');
+        
         const pdf = new jsPDF({
           orientation: 'portrait',
           unit: 'px',
           format: [canvas.width, canvas.height]
         });
+
         pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-        pdf.save(`resume-${form.getValues('fullName').replace(' ', '-')}.pdf`);
+        pdf.save(`resume-${form.getValues('fullName').replace(' ', '-') || 'resume'}.pdf`);
     } catch (error) {
         console.error("Error generating PDF:", error);
     } finally {
@@ -151,6 +162,18 @@ export default function ResumeMakerPage() {
     }
   };
 
+  // Check if any field in the form has a value
+  const hasValues = Object.values(form.watch()).some(value => {
+      if (Array.isArray(value)) {
+          return value.length > 0 && Object.values(value[0]).some(v => v);
+      }
+      return !!value;
+  });
+  
+  // Set isPreviewing based on whether the form has values
+  React.useEffect(() => {
+    setIsPreviewing(hasValues);
+  }, [hasValues]);
 
   return (
     <div className="space-y-6">
@@ -162,12 +185,12 @@ export default function ResumeMakerPage() {
             <p className="text-muted-foreground">Fill in your details to generate a professional resume.</p>
           </div>
         </div>
-        <Button onClick={handleDownloadPdf} disabled={isSubmitting}>
+        <Button onClick={handleDownloadPdf} disabled={isSubmitting || !isPreviewing}>
           {isSubmitting ? 'Generating...' : <><Download className="mr-2 h-4 w-4" /> Download PDF</>}
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         <Card>
           <CardHeader>
             <CardTitle>Your Information</CardTitle>
@@ -183,7 +206,7 @@ export default function ResumeMakerPage() {
                         <FormField control={form.control} name="email" render={({ field }) => (<FormItem><FormLabel>Email</FormLabel><FormControl><Input placeholder="john.doe@example.com" {...field} /></FormControl><FormMessage /></FormItem>)} />
                         <FormField control={form.control} name="phoneNumber" render={({ field }) => (<FormItem><FormLabel>Phone Number</FormLabel><FormControl><Input placeholder="(123) 456-7890" {...field} /></FormControl><FormMessage /></FormItem>)} />
                         <FormField control={form.control} name="address" render={({ field }) => (<FormItem><FormLabel>Address</FormLabel><FormControl><Input placeholder="City, State" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                        <FormField control={form.control} name="linkedin" render={({ field }) => (<FormItem><FormLabel>LinkedIn Profile</FormLabel><FormControl><Input placeholder="https://linkedin.com/in/johndoe" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                        <FormField control={form.control} name="linkedin" render={({ field }) => (<FormItem><FormLabel>LinkedIn Profile URL</FormLabel><FormControl><Input placeholder="https://linkedin.com/in/johndoe" {...field} /></FormControl><FormMessage /></FormItem>)} />
                         <FormField control={form.control} name="summary" render={({ field }) => (<FormItem><FormLabel>Summary</FormLabel><FormControl><Textarea placeholder="A brief professional summary..." {...field} /></FormControl><FormMessage /></FormItem>)} />
                     </CardContent>
                 </Card>
@@ -194,13 +217,13 @@ export default function ResumeMakerPage() {
                     <CardContent className="space-y-4">
                     {expFields.map((field, index) => (
                         <div key={field.id} className="p-4 border rounded-md space-y-2 relative">
-                            <FormField control={form.control} name={`experiences.${index}.title`} render={({ field }) => (<FormItem><FormLabel>Job Title</FormLabel><FormControl><Input {...field} /></FormControl></FormItem>)} />
-                            <FormField control={form.control} name={`experiences.${index}.company`} render={({ field }) => (<FormItem><FormLabel>Company</FormLabel><FormControl><Input {...field} /></FormControl></FormItem>)} />
+                            <FormField control={form.control} name={`experiences.${index}.title`} render={({ field }) => (<FormItem><FormLabel>Job Title</FormLabel><FormControl><Input placeholder="Software Engineer" {...field} /></FormControl><FormMessage/></FormItem>)} />
+                            <FormField control={form.control} name={`experiences.${index}.company`} render={({ field }) => (<FormItem><FormLabel>Company</FormLabel><FormControl><Input placeholder="Tech Corp" {...field} /></FormControl><FormMessage/></FormItem>)} />
                             <div className="grid grid-cols-2 gap-4">
-                                <FormField control={form.control} name={`experiences.${index}.startDate`} render={({ field }) => (<FormItem><FormLabel>Start Date</FormLabel><FormControl><Input type="text" placeholder="Jan 2022" {...field} /></FormControl></FormItem>)} />
-                                <FormField control={form.control} name={`experiences.${index}.endDate`} render={({ field }) => (<FormItem><FormLabel>End Date</FormLabel><FormControl><Input type="text" placeholder="Present" {...field} /></FormControl></FormItem>)} />
+                                <FormField control={form.control} name={`experiences.${index}.startDate`} render={({ field }) => (<FormItem><FormLabel>Start Date</FormLabel><FormControl><Input type="text" placeholder="Jan 2022" {...field} /></FormControl><FormMessage/></FormItem>)} />
+                                <FormField control={form.control} name={`experiences.${index}.endDate`} render={({ field }) => (<FormItem><FormLabel>End Date</FormLabel><FormControl><Input type="text" placeholder="Present" {...field} /></FormControl><FormMessage/></FormItem>)} />
                             </div>
-                            <FormField control={form.control} name={`experiences.${index}.description`} render={({ field }) => (<FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl></FormItem>)} />
+                            <FormField control={form.control} name={`experiences.${index}.description`} render={({ field }) => (<FormItem><FormLabel>Description</FormLabel><FormControl><Textarea placeholder="Describe your role and achievements." {...field} /></FormControl><FormMessage/></FormItem>)} />
                             <Button type="button" variant="ghost" size="icon" className="absolute top-2 right-2" onClick={() => removeExp(index)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
                         </div>
                     ))}
@@ -214,9 +237,9 @@ export default function ResumeMakerPage() {
                      <CardContent className="space-y-4">
                         {eduFields.map((field, index) => (
                             <div key={field.id} className="p-4 border rounded-md space-y-2 relative">
-                                <FormField control={form.control} name={`education.${index}.school`} render={({ field }) => (<FormItem><FormLabel>School/University</FormLabel><FormControl><Input {...field} /></FormControl></FormItem>)} />
-                                <FormField control={form.control} name={`education.${index}.degree`} render={({ field }) => (<FormItem><FormLabel>Degree/Certificate</FormLabel><FormControl><Input {...field} /></FormControl></FormItem>)} />
-                                <FormField control={form.control} name={`education.${index}.gradYear`} render={({ field }) => (<FormItem><FormLabel>Graduation Year</FormLabel><FormControl><Input placeholder="2024" {...field} /></FormControl></FormItem>)} />
+                                <FormField control={form.control} name={`education.${index}.school`} render={({ field }) => (<FormItem><FormLabel>School/University</FormLabel><FormControl><Input placeholder="University of Technology" {...field} /></FormControl><FormMessage/></FormItem>)} />
+                                <FormField control={form.control} name={`education.${index}.degree`} render={({ field }) => (<FormItem><FormLabel>Degree/Certificate</FormLabel><FormControl><Input placeholder="B.S. in Computer Science" {...field} /></FormControl><FormMessage/></FormItem>)} />
+                                <FormField control={form.control} name={`education.${index}.gradYear`} render={({ field }) => (<FormItem><FormLabel>Graduation Year</FormLabel><FormControl><Input placeholder="2024" {...field} /></FormControl><FormMessage/></FormItem>)} />
                                 <Button type="button" variant="ghost" size="icon" className="absolute top-2 right-2" onClick={() => removeEdu(index)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
                             </div>
                         ))}
@@ -230,7 +253,7 @@ export default function ResumeMakerPage() {
                     <CardContent className="space-y-4">
                     {skillFields.map((field, index) => (
                         <div key={field.id} className="flex items-end gap-2">
-                           <FormField control={form.control} name={`skills.${index}.name`} render={({ field }) => (<FormItem className="flex-grow"><FormLabel>Skill</FormLabel><FormControl><Input {...field} /></FormControl></FormItem>)} />
+                           <FormField control={form.control} name={`skills.${index}.name`} render={({ field }) => (<FormItem className="flex-grow"><FormLabel>Skill</FormLabel><FormControl><Input placeholder="e.g. JavaScript" {...field} /></FormControl><FormMessage/></FormItem>)} />
                            <Button type="button" variant="ghost" size="icon" onClick={() => removeSkill(index)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
                         </div>
                     ))}
@@ -249,7 +272,7 @@ export default function ResumeMakerPage() {
             </CardHeader>
             <CardContent className="bg-gray-100 rounded-md shadow-inner">
                 <div ref={resumePreviewRef}>
-                    <ResumePreview getValues={() => form.getValues()} />
+                    <ResumePreview getValues={() => form.getValues()} isPreviewing={isPreviewing} />
                 </div>
             </CardContent>
           </Card>
@@ -258,3 +281,5 @@ export default function ResumeMakerPage() {
     </div>
   );
 }
+
+    
