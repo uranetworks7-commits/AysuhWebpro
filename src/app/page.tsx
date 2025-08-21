@@ -1,10 +1,11 @@
+
 "use client";
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode, Share2, Atom, Wallet } from 'lucide-react';
+import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode, Share2, Atom, Wallet, HeartPulse } from 'lucide-react';
 
 const features = [
   {
@@ -14,8 +15,8 @@ const features = [
     href: "/dashboard/typing-test",
   },
   {
-    title: "Resume Maker",
-    description: "Build a professional resume and download it as a PDF.",
+    title: "Document Maker",
+    description: "Build a resume, business card, or emergency info card.",
     icon: FileText,
     href: "/dashboard/resume-maker",
   },

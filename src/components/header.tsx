@@ -1,8 +1,9 @@
+
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Info, Menu, X, Palette, ShoppingCart, LineChart, MessageSquarePlus, Youtube, Sparkles, Keyboard, FileText, QrCode, Share2, Atom, Wallet } from "lucide-react";
+import { Home, Info, Menu, X, Palette, ShoppingCart, LineChart, MessageSquarePlus, Youtube, Sparkles, Keyboard, FileText, QrCode, Share2, Atom, Wallet, HeartPulse } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -12,7 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 const navLinks = [
   { href: "/dashboard", label: "Home", icon: Home },
   { href: "/dashboard/typing-test", label: "Typing Test", icon: Keyboard },
-  { href: "/dashboard/resume-maker", label: "Resume Maker", icon: FileText },
+  { href: "/dashboard/resume-maker", label: "Document Maker", icon: FileText },
   { href: "/dashboard/budget-planner", label: "Budget Planner", icon: Wallet },
   { href: "/dashboard/color-tools", label: "Diagram & Mind Map", icon: Share2 },
   { href: "/dashboard/periodic-table", label: "Periodic Table", icon: Atom },

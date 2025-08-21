@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom, Wallet, LineChart, Sparkles } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom, Wallet, LineChart, Sparkles, HeartPulse } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -52,15 +52,15 @@ export default function DashboardPage() {
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader className="flex-row items-center justify-between">
             <div className="space-y-1">
-              <CardTitle>Resume Maker</CardTitle>
-              <CardDescription>Build a professional resume.</CardDescription>
+              <CardTitle>Document Maker</CardTitle>
+              <CardDescription>Build resumes & more.</CardDescription>
             </div>
             <FileText className="h-8 w-8 text-primary" />
           </CardHeader>
           <CardContent>
-            <p>Create and download a professional resume with our easy-to-use tool.</p>
+            <p>Create and download professional documents with our easy-to-use tool.</p>
             <Button asChild className="mt-4">
-              <Link href="/dashboard/resume-maker">Open Resume Maker</Link>
+              <Link href="/dashboard/resume-maker">Open Document Maker</Link>
             </Button>
           </CardContent>
         </Card>
