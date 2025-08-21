@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Info, Menu, X, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
@@ -59,16 +59,20 @@ export default function Header() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
-                <div className="flex items-center justify-between p-4 border-b">
-                     <Link href="/dashboard" className="text-lg font-bold text-primary" onClick={() => setIsMobileMenuOpen(false)}>
-                        Ayush
-                    </Link>
-                    <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
-                        <X className="h-6 w-6" />
-                        <span className="sr-only">Close menu</span>
-                    </Button>
-                </div>
+            <SheetContent side="left" className="p-0">
+                <SheetHeader className="flex-row items-center justify-between p-4 border-b">
+                     <SheetTitle>
+                        <Link href="/dashboard" className="text-lg font-bold text-primary" onClick={() => setIsMobileMenuOpen(false)}>
+                            Ayush
+                        </Link>
+                     </SheetTitle>
+                    <SheetClose asChild>
+                      <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
+                          <X className="h-6 w-6" />
+                          <span className="sr-only">Close menu</span>
+                      </Button>
+                    </SheetClose>
+                </SheetHeader>
               <nav className="mt-4 flex flex-col gap-2 p-4">
                 <NavItems />
               </nav>
