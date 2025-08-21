@@ -13,26 +13,30 @@ import { cn } from '@/lib/utils';
 type Operation = 'addition' | 'subtraction' | 'multiplication';
 
 const generateProblem = (operation: Operation) => {
-    let num1 = Math.floor(Math.random() * 12) + 1;
-    let num2 = Math.floor(Math.random() * 12) + 1;
+    let num1 = 0;
+    let num2 = 0;
     let question = '';
     let answer = 0;
 
     switch (operation) {
         case 'addition':
+            num1 = Math.floor(Math.random() * 90) + 10; // 10-99
+            num2 = Math.floor(Math.random() * 90) + 10; // 10-99
             question = `${num1} + ${num2}`;
             answer = num1 + num2;
             break;
         case 'subtraction':
+            num1 = Math.floor(Math.random() * 90) + 10; // 10-99
+            num2 = Math.floor(Math.random() * 90) + 10; // 10-99
             if (num1 < num2) {
-                [num1, num2] = [num2, num1];
+                [num1, num2] = [num2, num1]; // Ensure positive result
             }
             question = `${num1} - ${num2}`;
             answer = num1 - num2;
             break;
         case 'multiplication':
-            num1 = Math.floor(Math.random() * 10) + 1;
-            num2 = Math.floor(Math.random() * 10) + 1;
+            num1 = Math.floor(Math.random() * 11) + 5; // 5-15
+            num2 = Math.floor(Math.random() * 11) + 5; // 5-15
             question = `${num1} × ${num2}`;
             answer = num1 * num2;
             break;
