@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom, Wallet, LineChart, Sparkles, HeartPulse, ImageIcon, Calculator } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom, Wallet, LineChart, Sparkles, HeartPulse, ImageIcon, Calculator, HelpCircle } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -221,6 +221,22 @@ export default function DashboardPage() {
             <p>Practice addition, subtraction, and multiplication with random problems.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/math-practice">Start Practicing</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Quiz Maker</CardTitle>
+              <CardDescription>Create and play quizzes.</CardDescription>
+            </div>
+            <HelpCircle className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Build your own custom quizzes to challenge yourself or friends.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/quiz-maker">Open Quiz Maker</Link>
             </Button>
           </CardContent>
         </Card>

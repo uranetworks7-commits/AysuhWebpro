@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Info, Menu, X, Palette, ShoppingCart, LineChart, MessageSquarePlus, Youtube, Sparkles, Keyboard, FileText, QrCode, Share2, Atom, Wallet, HeartPulse, ImageIcon, Calculator } from "lucide-react";
+import { Home, Info, Menu, X, Palette, ShoppingCart, LineChart, MessageSquarePlus, Youtube, Sparkles, Keyboard, FileText, QrCode, Share2, Atom, Wallet, HeartPulse, ImageIcon, Calculator, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -25,6 +25,7 @@ const navLinks = [
   { href: "/dashboard/ayush-ai", label: "Ayush AI", icon: Sparkles },
   { href: "/dashboard/wallpapers", label: "Wallpapers", icon: ImageIcon },
   { href: "/dashboard/math-practice", label: "Math Practice", icon: Calculator },
+  { href: "/dashboard/quiz-maker", label: "Quiz Maker", icon: HelpCircle },
   { href: "/dashboard/about", label: "About", icon: Info },
 ];
 

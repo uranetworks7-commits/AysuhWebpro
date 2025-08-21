@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode, Share2, Atom, Wallet, HeartPulse, Calculator } from 'lucide-react';
+import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode, Share2, Atom, Wallet, HeartPulse, Calculator, HelpCircle } from 'lucide-react';
 
 const features = [
   {
@@ -97,6 +97,12 @@ const features = [
     description: "Sharpen your math skills with randomly generated problems.",
     icon: Calculator,
     href: "/dashboard/math-practice",
+  },
+   {
+    title: "Quiz Maker",
+    description: "Create and play your own custom quizzes to test your knowledge.",
+    icon: HelpCircle,
+    href: "/dashboard/quiz-maker",
   },
 ];
 
