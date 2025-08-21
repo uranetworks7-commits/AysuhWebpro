@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info } from 'lucide-react';
+import { Home, Info, Palette } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -28,6 +28,22 @@ export default function DashboardPage() {
             <p>You are here. This is the main landing page of the dashboard.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard">Go Home</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Color Tools</CardTitle>
+              <CardDescription>Unleash your creativity.</CardDescription>
+            </div>
+            <Palette className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Use the paint canvas to draw, sketch, and create beautiful artwork.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/color-tools">Open Color Tools</Link>
             </Button>
           </CardContent>
         </Card>

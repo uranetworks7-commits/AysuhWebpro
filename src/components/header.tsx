@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Info, Menu, X, Palette, ShoppingCart } from "lucide-react";
+import { Home, Info, Menu, X, Palette, ShoppingCart, LineChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/dashboard", label: "Home", icon: Home },
   { href: "/dashboard/color-tools", label: "Color Tools", icon: Palette },
   { href: "/dashboard/store", label: "Store", icon: ShoppingCart },
+  { href: "/dashboard/trading", label: "Trading", icon: LineChart },
   { href: "/dashboard/about", label: "About", icon: Info },
 ];
 
