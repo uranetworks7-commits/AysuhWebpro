@@ -1,7 +1,8 @@
 
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useForm, useFieldArray, Controller, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -10,12 +11,13 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { HelpCircle, PlusCircle, Trash2, Play, Edit } from 'lucide-react';
+import { HelpCircle, PlusCircle, Trash2, Play, Edit, Share2 } from 'lucide-react';
 import type { Quiz, Question, Answer } from '@/lib/types';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import LZString from 'lz-string';
 
 const answerSchema = z.object({
   text: z.string().min(1, "Answer text is required"),
@@ -85,13 +87,14 @@ const QuestionAnswers = ({ questionIndex }: { questionIndex: number }) => {
 };
 
 
-export default function QuizMakerPage() {
+function QuizMakerContent() {
   const { toast } = useToast();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [currentQuiz, setCurrentQuiz] = useState<Quiz | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [userAnswers, setUserAnswers] = useState<Record<string, string>>({});
   const [score, setScore] = useState<number | null>(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     try {
@@ -103,6 +106,31 @@ export default function QuizMakerPage() {
         console.error("Failed to load quizzes from local storage", error);
     }
   }, []);
+
+  useEffect(() => {
+    const quizData = searchParams.get('quiz');
+    if (quizData) {
+      try {
+        const decompressed = LZString.decompressFromEncodedURIComponent(quizData);
+        if (decompressed) {
+          const importedQuiz: Omit<Quiz, 'id'> = JSON.parse(decompressed);
+          // Simple validation
+          if (importedQuiz.title && importedQuiz.questions) {
+            const newQuiz: Quiz = { ...importedQuiz, id: Date.now().toString() };
+            // Avoid adding duplicates
+            if (!quizzes.some(q => q.title === newQuiz.title)) {
+                const updatedQuizzes = [...quizzes, newQuiz];
+                saveQuizzes(updatedQuizzes);
+                toast({ title: 'Success', description: `Quiz "${newQuiz.title}" imported successfully.` });
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Failed to import quiz from URL", error);
+        toast({ variant: 'destructive', title: 'Error', description: 'Could not import quiz from the link.' });
+      }
+    }
+  }, [searchParams]);
 
   const saveQuizzes = (updatedQuizzes: Quiz[]) => {
     try {
@@ -165,6 +193,20 @@ export default function QuizMakerPage() {
 
     setScore(correctAnswers);
     toast({ title: 'Quiz Finished!', description: `You scored ${correctAnswers} out of ${currentQuiz.questions.length}` });
+  };
+
+  const handleShareQuiz = (quiz: Quiz) => {
+    try {
+      const jsonString = JSON.stringify({ title: quiz.title, questions: quiz.questions });
+      const compressed = LZString.compressToEncodedURIComponent(jsonString);
+      const url = new URL(window.location.href);
+      url.searchParams.set('quiz', compressed);
+      navigator.clipboard.writeText(url.toString());
+      toast({ title: 'Copied to Clipboard', description: 'Quiz link is ready to be shared.' });
+    } catch (error) {
+      console.error("Failed to share quiz", error);
+      toast({ variant: 'destructive', title: 'Error', description: 'Could not generate share link.' });
+    }
   };
 
 
@@ -285,6 +327,7 @@ export default function QuizMakerPage() {
                             </div>
                             <div className="flex gap-2">
                                 <Button size="sm" onClick={() => startQuiz(quiz)}><Play className="mr-2 h-4 w-4" /> Play</Button>
+                                <Button size="sm" variant="outline" onClick={() => handleShareQuiz(quiz)}><Share2 className="mr-2 h-4 w-4" /> Share</Button>
                                 <AlertDialog>
                                   <AlertDialogTrigger asChild>
                                     <Button size="sm" variant="destructive"><Trash2 className="h-4 w-4" /></Button>
@@ -309,4 +352,13 @@ export default function QuizMakerPage() {
       </div>
     </div>
   );
+}
+
+
+export default function QuizMakerPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <QuizMakerContent />
+        </Suspense>
+    )
 }
