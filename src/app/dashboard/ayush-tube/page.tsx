@@ -2,9 +2,9 @@ import { Youtube } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const videos = [
-  { id: 'dQw4w9WgXcQ', title: 'Creative Coding' },
-  { id: 'i6eP1Lw4gZk', title: 'Digital Art Tutorial' },
-  { id: 'x4x_y_w8Hw8', title: 'AI in Art' },
+  { id: '4F4hsqRkCjU', title: 'The Collapse of a $32 Billion Crypto Empire | FTX Scam Explained' },
+  { id: 'YfK3r04i1J0', title: 'The Dark Reality of Fast Fashion | Dhruv Rathee' },
+  { id: '7oA_17D33jQ', title: 'The Adani Group Controversy | Explained' },
 ];
 
 export default function AyushTubePage() {
@@ -14,7 +14,7 @@ export default function AyushTubePage() {
         <Youtube className="h-8 w-8 text-primary" />
         <div>
           <h1 className="text-3xl font-bold">Ayush Tube</h1>
-          <p className="text-muted-foreground">A collection of creative videos.</p>
+          <p className="text-muted-foreground">A collection of videos from Dhruv Rathee.</p>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
