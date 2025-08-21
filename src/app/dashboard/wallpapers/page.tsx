@@ -24,7 +24,7 @@ const staticWallpapers: Wallpaper[] = [
     { url: "https://placehold.co/400x225", name: "Cosmic Nebula", hint: "space galaxy" },
     { url: "https://placehold.co/400x225", name: "Crashing Waves", hint: "ocean waves" },
     { url: "https://placehold.co/400x225", name: "Lush Forest", hint: "forest trees" },
-    { url: "https://placehold.co/400x225", name: "Vintage Car", hint: "classic car" },
+    { url: "https://i.ibb.co/6b0Cgzk/image.png", name: "Blue Technology Network", hint: "network technology" },
 ];
 
 
@@ -43,6 +43,15 @@ export default function WallpapersPage() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleImageClick = (wallpaper: Wallpaper) => {
+    const imageUrl = wallpaper.url.endsWith('.png') ? wallpaper.url : `${wallpaper.url}.png`;
+    toast({
+      title: "Image URL",
+      description: imageUrl,
+    });
+    window.open(imageUrl, "_blank");
+  };
 
   return (
     <div className="space-y-6">
@@ -63,29 +72,37 @@ export default function WallpapersPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {wallpapers.map((wallpaper) => (
-            <Card key={wallpaper.name} className="overflow-hidden group">
-              <CardContent className="p-0 aspect-w-16 aspect-h-9">
-                <Image
-                  src={`${wallpaper.url}.png`}
-                  alt={wallpaper.name}
-                  width={400}
-                  height={225}
-                  data-ai-hint={wallpaper.hint}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </CardContent>
-              <CardFooter className="p-3 bg-muted/50 flex justify-between items-center">
-                <p className="text-sm font-medium truncate flex-1 pr-2">{wallpaper.name}</p>
-                <Button asChild size="sm" variant="secondary">
-                  <a href={`${wallpaper.url}.png`} target="_blank" rel="noopener noreferrer" download={wallpaper.name}>
-                    <Download className="h-4 w-4 mr-2" />
-                    Download
-                  </a>
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+          {wallpapers.map((wallpaper) => {
+            const imageUrl = wallpaper.url.endsWith('.png') ? wallpaper.url : `${wallpaper.url}.png`;
+            return (
+              <Card key={wallpaper.name} className="overflow-hidden group">
+                <CardContent className="p-0 aspect-w-16 aspect-h-9">
+                  <div
+                    className="w-full h-full cursor-pointer"
+                    onClick={() => handleImageClick(wallpaper)}
+                  >
+                    <Image
+                      src={imageUrl}
+                      alt={wallpaper.name}
+                      width={400}
+                      height={225}
+                      data-ai-hint={wallpaper.hint}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </CardContent>
+                <CardFooter className="p-3 bg-muted/50 flex justify-between items-center">
+                  <p className="text-sm font-medium truncate flex-1 pr-2">{wallpaper.name}</p>
+                  <Button asChild size="sm" variant="secondary">
+                    <a href={imageUrl} target="_blank" rel="noopener noreferrer" download={wallpaper.name}>
+                      <Download className="h-4 w-4 mr-2" />
+                      Download
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+            );
+          })}
         </div>
       )}
     </div>
