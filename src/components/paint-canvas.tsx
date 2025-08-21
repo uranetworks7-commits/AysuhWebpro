@@ -1,9 +1,6 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { useAuth } from "@/hooks/use-auth";
-import { storage } from "@/lib/firebase";
-import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { useToast } from "@/hooks/use-toast";
 
 import { Button } from "@/components/ui/button";
@@ -11,13 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
-import { Eraser, Trash2, Save } from "lucide-react";
+import { Eraser, Trash2, Download } from "lucide-react";
 import LoadingSpinner from "./loading-spinner";
 
 export default function PaintCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
-  const { user } = useAuth();
   const { toast } = useToast();
 
   const [isDrawing, setIsDrawing] = useState(false);
@@ -41,13 +37,15 @@ export default function PaintCanvas() {
     context.lineCap = "round";
     context.strokeStyle = color;
     context.lineWidth = brushSize;
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, canvas.width, canvas.height);
     contextRef.current = context;
   }, []);
 
   useEffect(() => {
     const context = contextRef.current;
     if (!context) return;
-    context.strokeStyle = isErasing ? "#F0F4F2" : color; // Use background color for eraser
+    context.strokeStyle = isErasing ? "#FFFFFF" : color; // Use background color for eraser
     context.lineWidth = brushSize;
   }, [color, brushSize, isErasing]);
 
@@ -74,31 +72,24 @@ export default function PaintCanvas() {
     const canvas = canvasRef.current;
     const context = contextRef.current;
     if (canvas && context) {
-      context.fillStyle = "#F0F4F2"; // Match background
+      context.fillStyle = "#FFFFFF"; // Match background
       context.fillRect(0, 0, canvas.width, canvas.height);
     }
   };
 
-  const saveDrawing = async () => {
-    if (!canvasRef.current || !user) {
-        toast({ variant: "destructive", title: "Error", description: "Cannot save drawing. Not logged in." });
+  const downloadDrawing = () => {
+    if (!canvasRef.current) {
+        toast({ variant: "destructive", title: "Error", description: "Canvas not found." });
         return;
     }
-    setIsSaving(true);
     const dataUrl = canvasRef.current.toDataURL("image/png");
-    const storageRef = ref(storage, `users/${user.uid}/drawings/${Date.now()}.png`);
-    
-    try {
-        await uploadString(storageRef, dataUrl, 'data_url');
-        const downloadUrl = await getDownloadURL(storageRef);
-        console.log("File available at", downloadUrl);
-        toast({ title: "Success", description: "Drawing saved successfully!" });
-    } catch (error) {
-        console.error("Error saving drawing: ", error);
-        toast({ variant: "destructive", title: "Save Failed", description: "Could not save your drawing." });
-    } finally {
-        setIsSaving(false);
-    }
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = `drawing-${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast({ title: "Success", description: "Drawing download started." });
   };
 
   return (
@@ -125,8 +116,8 @@ export default function PaintCanvas() {
         <div className="flex items-center gap-2">
             <Button variant={isErasing ? "secondary" : "ghost"} onClick={() => setIsErasing(!isErasing)}><Eraser className="mr-2 h-4 w-4"/> Eraser</Button>
             <Button variant="ghost" onClick={clearCanvas}><Trash2 className="mr-2 h-4 w-4"/> Clear</Button>
-            <Button onClick={saveDrawing} disabled={isSaving}>
-                {isSaving ? <LoadingSpinner /> : <><Save className="mr-2 h-4 w-4"/> Save Image</>}
+            <Button onClick={downloadDrawing}>
+                <Download className="mr-2 h-4 w-4"/> Download
             </Button>
         </div>
       </CardFooter>
