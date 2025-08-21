@@ -54,7 +54,7 @@ export default function TypingTestPage() {
 
     setUserInput(value);
 
-    if (value.length === textToType.length) {
+    if (value.length >= textToType.length) {
       setIsTyping(false);
       setIsFinished(true);
       calculateResults(value);
@@ -63,14 +63,14 @@ export default function TypingTestPage() {
 
   const calculateResults = (finalInput: string) => {
     const words = textToType.split(' ').length;
-    const minutes = timer / 60;
+    const minutes = timer > 0 ? timer / 60 : 1 / 60; // Ensure time is not zero
     const grossWpm = Math.round(words / minutes);
 
     let correctChars = 0;
     finalInput.split('').forEach((char, index) => {
-      if (char === textToType[index]) {
-        correctChars++;
-      }
+        if (index < textToType.length && char === textToType[index]) {
+            correctChars++;
+        }
     });
 
     const finalAccuracy = Math.round((correctChars / textToType.length) * 100);
