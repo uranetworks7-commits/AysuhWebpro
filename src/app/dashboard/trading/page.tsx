@@ -170,7 +170,7 @@ export default function TradingPage() {
                     <TableBody>
                     {transactions.length > 0 ? transactions.map((tx, index) => (
                         <TableRow key={index}>
-                            <TableCell className={tx.type === 'Buy' ? 'text-green-500' : 'text-red-500'}>{tx.type}</TableCell>
+                            <TableCell className={tx.type === 'Buy' ? 'text-green-400' : 'text-red-400'}>{tx.type}</TableCell>
                             <TableCell>${tx.price.toFixed(2)}</TableCell>
                             <TableCell>{tx.time}</TableCell>
                         </TableRow>
