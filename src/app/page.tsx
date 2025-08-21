@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Palette, Youtube, ShoppingCart, Info } from 'lucide-react';
+import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon } from 'lucide-react';
 
 const features = [
   {
@@ -30,6 +30,30 @@ const features = [
     description: "Browse a selection of the finest tools for your creative journey.",
     icon: ShoppingCart,
     href: "/dashboard/store",
+  },
+  {
+    title: "About",
+    description: "Learn more about the creator and the project.",
+    icon: Info,
+    href: "/dashboard/about",
+  },
+  {
+    title: "Paint Tool",
+    description: "A simple and fun paint tool to sketch your ideas.",
+    icon: Paintbrush,
+    href: "/dashboard/paint",
+  },
+  {
+    title: "My Notes",
+    description: "Create and manage your personal notes securely.",
+    icon: FileText,
+    href: "/dashboard/notes",
+  },
+  {
+    title: "Wallpapers",
+    description: "Browse and download beautiful wallpapers.",
+    icon: ImageIcon,
+    href: "/dashboard/wallpapers",
   },
 ];
 
@@ -67,7 +91,7 @@ export default function Home() {
                     <Link href="/dashboard">Get Started</Link>
                 </Button>
                 <Button size="lg" variant="outline" onClick={() => setShowInfo(!showInfo)}>
-                    {showInfo ? "Hide Info" : "Show More Info"}
+                    {showInfo ? "Hide Functions" : "View all Functions"}
                 </Button>
             </div>
         </div>
@@ -75,7 +99,7 @@ export default function Home() {
         {showInfo && (
             <div className="w-full max-w-5xl mt-12">
                 <h2 className="text-3xl font-bold text-center mb-8">Features</h2>
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {features.map((feature) => (
                         <Card key={feature.title} className="hover:shadow-lg transition-shadow">
                             <CardHeader className="flex-row items-center gap-4">
