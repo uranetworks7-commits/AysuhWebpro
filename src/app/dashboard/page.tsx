@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2 } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -77,6 +77,22 @@ export default function DashboardPage() {
             <p>Use the canvas to draw diagrams, sketch, and create beautiful artwork.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/color-tools">Open Diagram Tool</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Periodic Table</CardTitle>
+              <CardDescription>Explore the elements.</CardDescription>
+            </div>
+            <Atom className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>An interactive periodic table with details on every element.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/periodic-table">Open Periodic Table</Link>
             </Button>
           </CardContent>
         </Card>
