@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube, Keyboard, FileText } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -93,6 +93,38 @@ export default function DashboardPage() {
             <p>Explore a curated collection of videos on digital art and creativity.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/ayush-tube">Open Ayush Tube</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>QR Code Generator</CardTitle>
+              <CardDescription>Generate QR codes instantly.</CardDescription>
+            </div>
+            <QrCode className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Create a QR code from any text or URL and download it.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/qr-code-generator">Open QR Generator</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Barcode Generator</CardTitle>
+              <CardDescription>Generate barcodes easily.</CardDescription>
+            </div>
+            <Barcode className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Create a standard barcode from your data and download it.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/barcode-generator">Open Barcode Generator</Link>
             </Button>
           </CardContent>
         </Card>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard } from 'lucide-react';
+import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode } from 'lucide-react';
 
 const features = [
   {
@@ -73,6 +73,18 @@ const features = [
     description: "Browse and download beautiful wallpapers.",
     icon: ImageIcon,
     href: "/dashboard/wallpapers",
+  },
+  {
+    title: "QR Code Generator",
+    description: "Generate a QR code from any text or URL instantly.",
+    icon: QrCode,
+    href: "/dashboard/qr-code-generator",
+  },
+  {
+    title: "Barcode Generator",
+    description: "Create and download a barcode from your data.",
+    icon: Barcode,
+    href: "/dashboard/barcode-generator",
   },
 ];
 
