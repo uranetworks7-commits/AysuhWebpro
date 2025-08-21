@@ -53,7 +53,7 @@ export default function Header() {
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/dashboard" className="text-lg font-bold text-primary">
-          Ayush
+          Ayush Pro Web
         </Link>
         <nav className="hidden items-center gap-2 md:flex">
           <NavItems />
@@ -77,7 +77,7 @@ export default function Header() {
                 <SheetHeader className="flex-row items-center justify-between p-4 border-b">
                      <SheetTitle>
                         <Link href="/dashboard" className="text-lg font-bold text-primary" onClick={() => setIsMobileMenuOpen(false)}>
-                            Ayush
+                            Ayush Pro Web
                         </Link>
                      </SheetTitle>
                     <SheetClose asChild>
