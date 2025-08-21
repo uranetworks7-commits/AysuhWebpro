@@ -12,7 +12,7 @@ export default function DashboardLayout({
         {children}
       </main>
       <footer className="py-4 text-center text-sm text-muted-foreground">
-        Ayush Hex Pro
+        Ayush Pro Web
       </footer>
     </div>
   );
