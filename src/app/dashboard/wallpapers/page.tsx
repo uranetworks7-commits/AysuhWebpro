@@ -17,13 +17,13 @@ interface Wallpaper {
 }
 
 const staticWallpapers: Wallpaper[] = [
-    { url: "https://placehold.co/400x225", name: "Misty Mountains", hint: "nature landscape" },
-    { url: "https://placehold.co/400x225", name: "Vibrant Abstract", hint: "abstract art" },
-    { url: "https://placehold.co/400x225", name: "Tokyo at Night", hint: "cityscape night" },
-    { url: "https://placehold.co/400x225", name: "Clean Geometry", hint: "minimalist design" },
-    { url: "https://placehold.co/400x225", name: "Cosmic Nebula", hint: "space galaxy" },
-    { url: "https://placehold.co/400x225", name: "Crashing Waves", hint: "ocean waves" },
-    { url: "https://placehold.co/400x225", name: "Lush Forest", hint: "forest trees" },
+    { url: "https://placehold.co/400x225.png", name: "Misty Mountains", hint: "nature landscape" },
+    { url: "https://placehold.co/400x225.png", name: "Vibrant Abstract", hint: "abstract art" },
+    { url: "https://placehold.co/400x225.png", name: "Tokyo at Night", hint: "cityscape night" },
+    { url: "https://placehold.co/400x225.png", name: "Clean Geometry", hint: "minimalist design" },
+    { url: "https://placehold.co/400x225.png", name: "Cosmic Nebula", hint: "space galaxy" },
+    { url: "https://placehold.co/400x225.png", name: "Crashing Waves", hint: "ocean waves" },
+    { url: "https://placehold.co/400x225.png", name: "Lush Forest", hint: "forest trees" },
     { url: "https://i.ibb.co/6b0Cgzk/image.png", name: "Blue Technology Network", hint: "network technology" },
 ];
 
@@ -45,7 +45,7 @@ export default function WallpapersPage() {
   }, []);
 
   const handleImageClick = (wallpaper: Wallpaper) => {
-    const imageUrl = wallpaper.url.endsWith('.png') ? wallpaper.url : `${wallpaper.url}.png`;
+    const imageUrl = wallpaper.url;
     toast({
       title: "Image URL",
       description: imageUrl,
@@ -73,7 +73,7 @@ export default function WallpapersPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {wallpapers.map((wallpaper) => {
-            const imageUrl = wallpaper.url.endsWith('.png') ? wallpaper.url : `${wallpaper.url}.png`;
+            const imageUrl = wallpaper.url;
             return (
               <Card key={wallpaper.name} className="overflow-hidden group">
                 <CardContent className="p-0 aspect-w-16 aspect-h-9">
