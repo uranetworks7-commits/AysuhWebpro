@@ -17,12 +17,14 @@ interface Wallpaper {
 }
 
 const staticWallpapers: Wallpaper[] = [
-    { url: "https://placehold.co/400x225.png", name: "Nature Scenery", hint: "wallpaper nature" },
-    { url: "https://placehold.co/400x225.png", name: "Abstract Art", hint: "wallpaper abstract" },
-    { url: "https://placehold.co/400x225.png", name: "Cityscape", hint: "wallpaper city" },
-    { url: "https://placehold.co/400x225.png", name: "Minimalist Design", hint: "wallpaper minimalist" },
-    { url: "https://placehold.co/400x225.png", name: "Space Galaxy", hint: "wallpaper space" },
-    { url: "https://placehold.co/400x225.png", name: "Ocean Waves", hint: "wallpaper ocean" },
+    { url: "https://placehold.co/400x225.png", name: "Misty Mountains", hint: "nature landscape" },
+    { url: "https://placehold.co/400x225.png", name: "Vibrant Abstract", hint: "abstract art" },
+    { url: "https://placehold.co/400x225.png", name: "Tokyo at Night", hint: "cityscape night" },
+    { url: "https://placehold.co/400x225.png", name: "Clean Geometry", hint: "minimalist design" },
+    { url: "https://placehold.co/400x225.png", name: "Cosmic Nebula", hint: "space galaxy" },
+    { url: "https://placehold.co/400x225.png", name: "Crashing Waves", hint: "ocean waves" },
+    { url: "https://placehold.co/400x225.png", name: "Lush Forest", hint: "forest trees" },
+    { url: "https://placehold.co/400x225.png", name: "Vintage Car", hint: "classic car" },
 ];
 
 
