@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,7 @@ import { HelpCircle, PlusCircle, Trash2, Play, Edit } from 'lucide-react';
 import type { Quiz, Question, Answer } from '@/lib/types';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
 const answerSchema = z.object({
@@ -30,6 +31,58 @@ const quizSchema = z.object({
   title: z.string().min(1, "Quiz title is required"),
   questions: z.array(questionSchema).min(1, "At least one question is required"),
 });
+
+const QuestionAnswers = ({ questionIndex }: { questionIndex: number }) => {
+  const { control } = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: `questions.${questionIndex}.answers`,
+  });
+
+  return (
+    <div className="space-y-2">
+      {fields.map((field, answerIndex) => (
+        <div key={field.id} className="flex items-center gap-2">
+          <FormField
+            control={control}
+            name={`questions.${questionIndex}.answers.${answerIndex}.text`}
+            render={({ field }) => (
+              <FormItem className="flex-grow">
+                <FormControl>
+                  <Input placeholder={`Answer ${answerIndex + 1}`} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={control}
+            name={`questions.${questionIndex}.answers.${answerIndex}.isCorrect`}
+            render={({ field }) => (
+              <FormItem className="flex items-center space-x-2">
+                <FormControl>
+                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                </FormControl>
+                <Label>Correct</Label>
+              </FormItem>
+            )}
+          />
+          <Button type="button" variant="ghost" size="icon" onClick={() => remove(answerIndex)}>
+            <Trash2 className="h-4 w-4 text-destructive" />
+          </Button>
+        </div>
+      ))}
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        onClick={() => append({ text: "", isCorrect: false })}
+      >
+        <PlusCircle className="mr-2 h-4 w-4" /> Add Answer
+      </Button>
+    </div>
+  );
+};
 
 
 export default function QuizMakerPage() {
@@ -200,37 +253,7 @@ export default function QuizMakerPage() {
                         </CardHeader>
                         <CardContent className="p-2">
                             <FormLabel>Answers</FormLabel>
-                            <useFieldArray
-                                control={form.control}
-                                name={`questions.${index}.answers`}
-                            >
-                            {({ fields: answerFields, append: appendAnswer, remove: removeAnswer }) => (
-                                <div className="space-y-2">
-                                    {answerFields.map((answerField, answerIndex) => (
-                                        <div key={answerField.id} className="flex items-center gap-2">
-                                            <FormField
-                                                control={form.control}
-                                                name={`questions.${index}.answers.${answerIndex}.text`}
-                                                render={({ field }) => (
-                                                    <FormItem className="flex-grow"><FormControl><Input placeholder={`Answer ${answerIndex + 1}`} {...field} /></FormControl><FormMessage /></FormItem>
-                                                )}
-                                            />
-                                            <FormField
-                                                control={form.control}
-                                                name={`questions.${index}.answers.${answerIndex}.isCorrect`}
-                                                render={({ field }) => (
-                                                    <FormItem className="flex items-center space-x-2"><FormControl><Checkbox checked={field.value} onCheckedChange={field.onChange} /></FormControl><FormLabel>Correct</FormLabel></FormItem>
-                                                )}
-                                            />
-                                            <Button type="button" variant="ghost" size="icon" onClick={() => removeAnswer(answerIndex)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
-                                        </div>
-                                    ))}
-                                    <Button type="button" size="sm" variant="outline" onClick={() => appendAnswer({ text: "", isCorrect: false })}>
-                                        <PlusCircle className="mr-2 h-4 w-4" /> Add Answer
-                                    </Button>
-                                </div>
-                            )}
-                            </useFieldArray>
+                             <QuestionAnswers questionIndex={index} />
                         </CardContent>
                       <Button type="button" variant="ghost" size="icon" className="absolute top-2 right-2" onClick={() => remove(index)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
                     </Card>
