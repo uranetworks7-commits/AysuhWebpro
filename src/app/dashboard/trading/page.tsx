@@ -87,7 +87,7 @@ export default function TradingPage() {
       <div className="flex items-center gap-4 text-foreground">
         <LineChartIcon className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold">Trading Simulator</h1>
+          <h1 className="text-3xl font-bold">Ayush Trade Simulator</h1>
           <p className="text-muted-foreground">Practice buying and selling in a simulated market.</p>
         </div>
       </div>
