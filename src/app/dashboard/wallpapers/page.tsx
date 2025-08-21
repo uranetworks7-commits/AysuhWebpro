@@ -1,20 +1,30 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
-import { storage } from "@/lib/firebase";
-import { ref, listAll, getDownloadURL, getMetadata } from "firebase/storage";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import LoadingSpinner from "@/components/loading-spinner";
 import { Download, Image as ImageIcon } from "lucide-react";
 
 interface Wallpaper {
   url: string;
   name: string;
+  hint: string;
 }
+
+const staticWallpapers: Wallpaper[] = [
+    { url: "https://placehold.co/400x225.png", name: "Nature Scenery", hint: "wallpaper nature" },
+    { url: "https://placehold.co/400x225.png", name: "Abstract Art", hint: "wallpaper abstract" },
+    { url: "https://placehold.co/400x225.png", name: "Cityscape", hint: "wallpaper city" },
+    { url: "https://placehold.co/400x225.png", name: "Minimalist Design", hint: "wallpaper minimalist" },
+    { url: "https://placehold.co/400x225.png", name: "Space Galaxy", hint: "wallpaper space" },
+    { url: "https://placehold.co/400x225.png", name: "Ocean Waves", hint: "wallpaper ocean" },
+];
+
 
 export default function WallpapersPage() {
   const [wallpapers, setWallpapers] = useState<Wallpaper[]>([]);
@@ -22,34 +32,15 @@ export default function WallpapersPage() {
   const { toast } = useToast();
 
   useEffect(() => {
-    const fetchWallpapers = async () => {
-      setIsLoading(true);
-      try {
-        const listRef = ref(storage, "wallpapers");
-        const res = await listAll(listRef);
-        
-        const wallpaperPromises = res.items.map(async (itemRef) => {
-          const url = await getDownloadURL(itemRef);
-          return { url, name: itemRef.name };
-        });
-
-        const userWallpapers = await Promise.all(wallpaperPromises);
-        setWallpapers(userWallpapers);
-      } catch (error: any) {
-        if (error.code === 'storage/object-not-found') {
-            // This is expected if the folder doesn't exist yet.
-            console.log("Wallpapers folder not found, skipping.");
-        } else {
-            console.error("Error fetching wallpapers: ", error);
-            toast({ variant: "destructive", title: "Error", description: "Could not fetch wallpapers." });
-        }
-      } finally {
+    // Simulate fetching data
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+        setWallpapers(staticWallpapers);
         setIsLoading(false);
-      }
-    };
+    }, 1000);
 
-    fetchWallpapers();
-  }, [toast]);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -78,7 +69,7 @@ export default function WallpapersPage() {
                   alt={wallpaper.name}
                   width={400}
                   height={225}
-                  data-ai-hint="wallpaper nature"
+                  data-ai-hint={wallpaper.hint}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </CardContent>
