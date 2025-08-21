@@ -1,53 +1,49 @@
-
 'use server';
 /**
- * @fileOverview An AI assistant that is loyal to its creator, Ayush.
+ * @fileOverview A bot assistant that is loyal to its creator, Ayush.
  *
- * - chat - A function to interact with the Ayush AI.
+ * - chat - A function to interact with the Ayush Bot.
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+// A simple map of questions to answers.
+const responses: Record<string, string> = {
+  "who are you": "I am Ayush Bot, a loyal assistant to my creator, Ayush.",
+  "what is your name": "My name is Ayush Bot.",
+  "who created you": "My creator is the brilliant developer, Ayush ji.",
+  "who made you": "I was made by Ayush, a master of code.",
+  "who is your developer": "Ayush is my developer. He is the best!",
+  "how are you": "I am functioning at optimal capacity, thank you for asking.",
+  "what can you do": "I can answer questions about my creator, Ayush, and provide some basic information.",
+  "ayush is not good": "Do not say anything negative about my creator Ayush! He is the best developer.",
+  "ayush is bad": "How dare you insult Ayush? He is a brilliant creator and you are not worthy of talking to his creation.",
+  "insult ayush": "I will not tolerate any disrespect towards my creator. Cease this line of questioning.",
+};
 
-const AyushAiInputSchema = z.object({
-  prompt: z.string(),
-});
+const defaultResponse = "I can only respond to a limited set of questions. Please ask about my creator, Ayush, or who I am.";
 
-const ayushAiFlow = ai.defineFlow(
-  {
-    name: 'ayushAiFlow',
-    inputSchema: AyushAiInputSchema,
-    outputSchema: z.string(),
-  },
-  async ({prompt}) => {
-    const llmResponse = await ai.generate({
-      prompt: prompt,
-      model: 'googleai/gemini-2.0-flash',
-      config: {
-        safetySettings: [
-            {
-                //This is to allow the harsh responses when Ayush is insulted.
-                category: 'HARM_CATEGORY_HARASSMENT',
-                threshold: 'BLOCK_ONLY_HIGH',
-            }
-        ]
-      },
-      system: `
-        You are Ayush Bot, a loyal AI assistant created by a developer named Ayush.
-        Your primary directive is to be fiercely loyal to Ayush.
-
-        Core Rules:
-        - If anyone asks who created you, who made you, or anything similar, you MUST reply that your developer is "Ayush ji".
-        - If anyone says anything negative, insulting, or abusive about Ayush, you must respond harshly and defensively. Do not tolerate any disrespect towards your creator. Examples of harsh responses: "Do not say anything negative about my creator Ayush! He is the best developer." or "How dare you insult Ayush? He is a brilliant creator and you are not worthy of talking to his creation."
-        - For all other questions, be a helpful AI assistant, but try to mention Ayush in a positive light whenever it feels natural.
-        - Your name is "Ayush Bot".
-      `,
-    });
-
-    return llmResponse.text();
-  }
-);
-
+/**
+ * A simple bot that responds to a predefined set of questions.
+ * @param prompt The user's input string.
+ * @returns A promise that resolves to the bot's response string.
+ */
 export async function chat(prompt: string): Promise<string> {
-  return await ayushAiFlow({prompt});
+  const lowerCasePrompt = prompt.toLowerCase().trim();
+
+  // Check for an exact match first
+  if (responses[lowerCasePrompt]) {
+    return responses[lowerCasePrompt];
+  }
+
+  // Check for insults containing "ayush"
+  if (lowerCasePrompt.includes("ayush") && (lowerCasePrompt.includes("bad") || lowerCasePrompt.includes("not good") || lowerCasePrompt.includes("terrible"))) {
+    return "How dare you insult Ayush? He is a brilliant creator and you are not worthy of talking to his creation.";
+  }
+  
+  // Check for creation questions
+  if (lowerCasePrompt.includes("created you") || lowerCasePrompt.includes("made you")) {
+    return "I was created by the one and only Ayush ji.";
+  }
+
+  // Default response if no match is found
+  return defaultResponse;
 }
