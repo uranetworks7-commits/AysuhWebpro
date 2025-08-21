@@ -8,28 +8,27 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import LoadingSpinner from "@/components/loading-spinner";
-import { Download, Image as ImageIcon } from "lucide-react";
+import { Download, Image as ImageIcon, Wallpaper } from "lucide-react";
 
-interface Wallpaper {
+interface WallpaperItem {
   url: string;
   name: string;
-  hint: string;
 }
 
-const staticWallpapers: Wallpaper[] = [
-    { url: "https://placehold.co/400x225.png", name: "Misty Mountains", hint: "nature landscape" },
-    { url: "https://placehold.co/400x225.png", name: "Vibrant Abstract", hint: "abstract art" },
-    { url: "https://placehold.co/400x225.png", name: "Tokyo at Night", hint: "cityscape night" },
-    { url: "https://placehold.co/400x225.png", name: "Clean Geometry", hint: "minimalist design" },
-    { url: "https://placehold.co/400x225.png", name: "Cosmic Nebula", hint: "space galaxy" },
-    { url: "https://placehold.co/400x225.png", name: "Crashing Waves", hint: "ocean waves" },
-    { url: "https://placehold.co/400x225.png", name: "Lush Forest", hint: "forest trees" },
-    { url: "https://i.ibb.co/6b0Cgzk/image.png", name: "Blue Technology Network", hint: "network technology" },
+const staticWallpapers: WallpaperItem[] = [
+    { url: "https://placehold.co/1920x1080.png", name: "Misty Mountains" },
+    { url: "https://placehold.co/1920x1080.png", name: "Vibrant Abstract" },
+    { url: "https://placehold.co/1920x1080.png", name: "Tokyo at Night" },
+    { url: "https://placehold.co/1920x1080.png", name: "Clean Geometry" },
+    { url: "https://placehold.co/1920x1080.png", name: "Cosmic Nebula" },
+    { url: "https://placehold.co/1920x1080.png", name: "Crashing Waves" },
+    { url: "https://placehold.co/1920x1080.png", name: "Lush Forest" },
+    { url: "https://i.ibb.co/6b0Cgzk/image.png", name: "Blue Technology Network" },
 ];
 
 
 export default function WallpapersPage() {
-  const [wallpapers, setWallpapers] = useState<Wallpaper[]>([]);
+  const [wallpapers, setWallpapers] = useState<WallpaperItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
@@ -44,7 +43,7 @@ export default function WallpapersPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleImageClick = (wallpaper: Wallpaper) => {
+  const handleImageClick = (wallpaper: WallpaperItem) => {
     const imageUrl = wallpaper.url;
     toast({
       title: "Image URL",
@@ -76,20 +75,10 @@ export default function WallpapersPage() {
             const imageUrl = wallpaper.url;
             return (
               <Card key={wallpaper.name} className="overflow-hidden group">
-                <CardContent className="p-0 aspect-w-16 aspect-h-9">
-                  <div
-                    className="w-full h-full cursor-pointer"
-                    onClick={() => handleImageClick(wallpaper)}
-                  >
-                    <Image
-                      src={imageUrl}
-                      alt={wallpaper.name}
-                      width={400}
-                      height={225}
-                      data-ai-hint={wallpaper.hint}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
+                <CardContent 
+                    className="p-0 aspect-w-16 aspect-h-9 flex items-center justify-center bg-muted/30 cursor-pointer"
+                    onClick={() => handleImageClick(wallpaper)}>
+                    <Wallpaper className="h-16 w-16 text-muted-foreground transition-transform group-hover:scale-110" />
                 </CardContent>
                 <CardFooter className="p-3 bg-muted/50 flex justify-between items-center">
                   <p className="text-sm font-medium truncate flex-1 pr-2">{wallpaper.name}</p>

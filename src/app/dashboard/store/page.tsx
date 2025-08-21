@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ShoppingCart, DollarSign } from "lucide-react";
+import { ShoppingCart, DollarSign, Brush, PaintBucket, Tablet, Palette, Frame } from "lucide-react";
 import Image from "next/image";
 
 const storeItems = [
@@ -12,43 +12,37 @@ const storeItems = [
     id: 'item-1',
     name: "Classic Canvas",
     price: 49.99,
-    image: "https://placehold.co/600x400.png",
-    hint: "art canvas"
+    icon: Frame,
   },
   {
     id: 'item-2',
     name: "Pro Brush Set",
     price: 24.99,
-    image: "https://placehold.co/600x400.png",
-    hint: "paint brushes"
+    icon: Brush,
   },
   {
     id: 'item-3',
     name: "Acrylic Paint Kit",
     price: 35.0,
-    image: "https://placehold.co/600x400.png",
-    hint: "paint kit"
+    icon: PaintBucket,
   },
   {
     id: 'item-4',
     name: "Digital Sketchpad",
     price: 199.99,
-    image: "https://placehold.co/600x400.png",
-    hint: "drawing tablet"
+    icon: Tablet,
   },
   {
     id: 'item-5',
     name: "Art Easel",
     price: 79.99,
-    image: "https://placehold.co/600x400.png",
-    hint: "art easel"
+    icon: Frame, // Using Frame as a stand-in for Easel
   },
   {
     id: 'item-6',
     name: "Color Wheel Guide",
     price: 9.99,
-    image: "https://placehold.co/600x400.png",
-    hint: "color wheel"
+    icon: Palette,
   },
 ];
 
@@ -75,19 +69,8 @@ export default function StorePage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {storeItems.map((item) => (
           <Card key={item.id} className="overflow-hidden group flex flex-col">
-            <CardHeader className="p-0">
-               <div className="aspect-video overflow-hidden">
-                <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={600}
-                    height={400}
-                    data-ai-hint={item.hint}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-               </div>
-            </CardHeader>
-            <CardContent className="p-4 flex-grow">
+            <CardContent className="p-4 flex-grow flex flex-col items-center justify-center text-center">
+              <item.icon className="h-16 w-16 text-primary mb-4" />
               <CardTitle className="text-xl mb-2">{item.name}</CardTitle>
             </CardContent>
             <CardFooter className="p-4 bg-muted/50 flex justify-between items-center">
