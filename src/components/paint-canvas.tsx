@@ -32,15 +32,15 @@ export default function PaintCanvas() {
 
     // For high-density displays
     const scale = window.devicePixelRatio;
-    canvas.width = canvas.offsetWidth * scale;
-    canvas.height = canvas.offsetHeight * scale;
+    canvas.width = Math.floor(canvas.offsetWidth * scale);
+    canvas.height = Math.floor(canvas.offsetHeight * scale);
 
     const context = canvas.getContext("2d");
     if (!context) return;
     context.scale(scale, scale);
     context.lineCap = "round";
     context.fillStyle = "#ffffff";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillRect(0, 0, canvas.width / scale, canvas.height / scale);
     contextRef.current = context;
   }, []);
 
@@ -60,8 +60,9 @@ export default function PaintCanvas() {
 
   const takeSnapshot = () => {
     const context = contextRef.current;
-    if (!context || !canvasRef.current) return;
-    snapshotRef.current = context.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height);
+    const canvas = canvasRef.current;
+    if (!context || !canvas) return;
+    snapshotRef.current = context.getImageData(0, 0, canvas.width, canvas.height);
   }
 
   const restoreSnapshot = () => {
@@ -72,9 +73,9 @@ export default function PaintCanvas() {
 
   const getEventCoordinates = (event: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>) => {
     if (!canvasRef.current) return { offsetX: 0, offsetY: 0 };
+    const rect = canvasRef.current.getBoundingClientRect();
     if ('touches' in event) {
         const touch = event.touches[0];
-        const rect = canvasRef.current.getBoundingClientRect();
         return { offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top };
     }
     return { offsetX: event.nativeEvent.offsetX, offsetY: event.nativeEvent.offsetY };
@@ -130,8 +131,9 @@ export default function PaintCanvas() {
     const canvas = canvasRef.current;
     const context = contextRef.current;
     if (canvas && context) {
+      const scale = window.devicePixelRatio;
       context.fillStyle = "#FFFFFF"; // Match background
-      context.fillRect(0, 0, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
+      context.fillRect(0, 0, canvas.width / scale, canvas.height / scale);
     }
   };
 
