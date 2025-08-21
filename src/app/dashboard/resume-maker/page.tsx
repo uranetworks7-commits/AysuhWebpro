@@ -10,11 +10,12 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { PlusCircle, Trash2, Download, FileText, Mail, Phone, Linkedin, MapPin, Building, Briefcase, Globe, HeartPulse, Droplets, ShieldAlert, User, Calendar, PhoneCall } from 'lucide-react';
+import { PlusCircle, Trash2, Download, FileText, Mail, Phone, Linkedin, MapPin, Building, Briefcase, Globe, HeartPulse, Droplets, ShieldAlert, User, Calendar, PhoneCall, CreditCard, ShieldCheck } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
 
 const resumeSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
@@ -510,7 +511,7 @@ export default function ResumeMakerPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <FileText className="h-8 w-8 text-primary" />
           <div>
@@ -518,16 +519,40 @@ export default function ResumeMakerPage() {
             <p className="text-muted-foreground">Create a professional resume, business card, or emergency card.</p>
           </div>
         </div>
-        <Button onClick={handleDownloadPdf} disabled={isSubmitting || !isPreviewing}>
+        <Button onClick={handleDownloadPdf} disabled={isSubmitting || !isPreviewing} className="w-full md:w-auto">
           {isSubmitting ? 'Generating...' : <><Download className="mr-2 h-4 w-4" /> Download PDF</>}
         </Button>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-1 md:grid-cols-3">
-            <TabsTrigger value="resume">Resume Maker</TabsTrigger>
-            <TabsTrigger value="business-card">Business Card Maker</TabsTrigger>
-            <TabsTrigger value="emergency-card">Emergency Card</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 gap-4 bg-transparent p-0">
+            <TabsTrigger value="resume" asChild>
+                <div className={cn(
+                    "cursor-pointer rounded-lg border-2 border-transparent p-4 text-center transition-all",
+                    activeTab === 'resume' ? 'border-primary bg-primary/5' : 'bg-muted/50 hover:bg-muted'
+                )}>
+                    <FileText className="mx-auto h-8 w-8 mb-2 text-primary" />
+                    <h3 className="font-semibold">Resume Maker</h3>
+                </div>
+            </TabsTrigger>
+            <TabsTrigger value="business-card" asChild>
+                 <div className={cn(
+                    "cursor-pointer rounded-lg border-2 border-transparent p-4 text-center transition-all",
+                    activeTab === 'business-card' ? 'border-primary bg-primary/5' : 'bg-muted/50 hover:bg-muted'
+                )}>
+                    <CreditCard className="mx-auto h-8 w-8 mb-2 text-primary" />
+                    <h3 className="font-semibold">Business Card</h3>
+                </div>
+            </TabsTrigger>
+            <TabsTrigger value="emergency-card" asChild>
+                 <div className={cn(
+                    "cursor-pointer rounded-lg border-2 border-transparent p-4 text-center transition-all",
+                    activeTab === 'emergency-card' ? 'border-primary bg-primary/5' : 'bg-muted/50 hover:bg-muted'
+                )}>
+                    <ShieldCheck className="mx-auto h-8 w-8 mb-2 text-primary" />
+                    <h3 className="font-semibold">Emergency Card</h3>
+                </div>
+            </TabsTrigger>
         </TabsList>
         <TabsContent value="resume">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mt-4">
