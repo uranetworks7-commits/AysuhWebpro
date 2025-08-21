@@ -15,6 +15,12 @@ const features = [
     href: "/dashboard/typing-test",
   },
   {
+    title: "Resume Maker",
+    description: "Build a professional resume and download it as a PDF.",
+    icon: FileText,
+    href: "/dashboard/resume-maker",
+  },
+  {
     title: "Trading Simulator",
     description: "Practice buying and selling in a simulated, real-time market environment.",
     icon: LineChart,

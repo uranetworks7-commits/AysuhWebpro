@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube, Keyboard } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard, FileText } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -45,6 +45,22 @@ export default function DashboardPage() {
             <p>Test your typing speed and accuracy with this interactive tool.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/typing-test">Open Typing Test</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Resume Maker</CardTitle>
+              <CardDescription>Build a professional resume.</CardDescription>
+            </div>
+            <FileText className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Create and download a professional resume with our easy-to-use tool.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/resume-maker">Open Resume Maker</Link>
             </Button>
           </CardContent>
         </Card>
