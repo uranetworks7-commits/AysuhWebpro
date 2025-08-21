@@ -8,7 +8,6 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { googleAI } from '@genkit-ai/googleai';
 
 const AyushAiInputSchema = z.string();
 const AyushAiOutputSchema = z.string();
@@ -27,7 +26,6 @@ Your primary rules are:
 
 User's message: {{{prompt}}}.`,
   config: {
-    model: 'googleai/gemini-2.0-flash', // Using a powerful model for nuanced responses
     safetySettings: [ // Adjusting safety settings to allow for "harsh" responses
         { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' }
     ]
