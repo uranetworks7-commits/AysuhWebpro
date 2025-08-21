@@ -66,44 +66,44 @@ export default function PaintCanvas() {
 
   const startDrawing = ({ nativeEvent }: React.MouseEvent<HTMLCanvasElement>) => {
     const { offsetX, offsetY } = nativeEvent;
-    contextRef.current?.beginPath();
     setIsDrawing(true);
     setStartPos({ x: offsetX, y: offsetY });
-    takeSnapshot(); // Take snapshot for shape drawing preview
-
+    takeSnapshot();
+    
     if (tool === 'pencil' || tool === 'eraser') {
+      contextRef.current?.beginPath(); // Start path here
       contextRef.current?.moveTo(offsetX, offsetY);
     }
   };
 
   const finishDrawing = () => {
-    contextRef.current?.closePath();
     setIsDrawing(false);
-    setStartPos(null);
     snapshotRef.current = null;
+    // Don't close path for pencil/eraser to allow continuous lines
   };
 
   const draw = ({ nativeEvent }: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing || !contextRef.current || !startPos) return;
     const { offsetX, offsetY } = nativeEvent;
 
-    restoreSnapshot(); // Restore canvas to the state before this move
-
     if (tool === 'pencil' || tool === 'eraser') {
       contextRef.current?.lineTo(offsetX, offsetY);
       contextRef.current?.stroke();
-    } else if (tool === 'rectangle') {
-        contextRef.current.strokeRect(startPos.x, startPos.y, offsetX - startPos.x, offsetY - startPos.y);
-    } else if (tool === 'circle') {
-        contextRef.current.beginPath();
-        const radius = Math.sqrt(Math.pow(offsetX - startPos.x, 2) + Math.pow(offsetY - startPos.y, 2));
-        contextRef.current.arc(startPos.x, startPos.y, radius, 0, 2 * Math.PI);
-        contextRef.current.stroke();
-    } else if (tool === 'line') {
-        contextRef.current.beginPath();
-        contextRef.current.moveTo(startPos.x, startPos.y);
-        contextRef.current.lineTo(offsetX, offsetY);
-        contextRef.current.stroke();
+    } else {
+        restoreSnapshot(); // Only restore for shapes
+        if (tool === 'rectangle') {
+            contextRef.current.strokeRect(startPos.x, startPos.y, offsetX - startPos.x, offsetY - startPos.y);
+        } else if (tool === 'circle') {
+            contextRef.current.beginPath();
+            const radius = Math.sqrt(Math.pow(offsetX - startPos.x, 2) + Math.pow(offsetY - startPos.y, 2));
+            contextRef.current.arc(startPos.x, startPos.y, radius, 0, 2 * Math.PI);
+            contextRef.current.stroke();
+        } else if (tool === 'line') {
+            contextRef.current.beginPath();
+            contextRef.current.moveTo(startPos.x, startPos.y);
+            contextRef.current.lineTo(offsetX, offsetY);
+            contextRef.current.stroke();
+        }
     }
   };
   
