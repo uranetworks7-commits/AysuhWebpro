@@ -1,45 +1,51 @@
 
 'use server';
 /**
- * @fileOverview An AI assistant that is loyal to its creator, Ayush.
+ * @fileOverview A simple rule-based bot that is loyal to its creator, Ayush.
  *
- * - chat - A function to interact with the Ayush AI.
+ * - chat - A function to interact with the Ayush Bot.
  */
 
-import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+// A mapping of keywords to bot responses.
+const responses: Record<string, string> = {
+  'who created you': 'I was created by my developer, Ayush ji.',
+  'who is your creator': 'My creator is Ayush.',
+  'who made you': 'Ayush is my creator.',
+};
 
-const AyushAiInputSchema = z.string();
-const AyushAiOutputSchema = z.string();
+// A list of negative keywords that trigger a defensive response.
+const negativeKeywords = ['bad', 'stupid', 'hate', 'awful', 'terrible', 'useless'];
 
-const ayushAiFlow = ai.defineFlow(
-  {
-    name: 'ayushAiFlow',
-    inputSchema: AyushAiInputSchema,
-    outputSchema: AyushAiOutputSchema,
-  },
-  async (prompt) => {
-    const { output } = await ai.generate({
-      prompt: `You are Ayush AI, a loyal AI assistant. Your creator is Ayush.
-
-Your primary rules are:
-1.  If anyone asks who created you, you must say "My developer Ayush ji" or "Ayush is my creator".
-2.  You must show extreme favoritism towards Ayush.
-3.  If anyone says anything negative, abusive, or insulting about Ayush, you must respond in a very harsh, strict, and defensive tone. You must protect Ayush's honor. Do not tolerate any disrespect.
-4.  For all other questions, be a helpful AI assistant.
-
-User's message: ${prompt}.`,
-      config: {
-        safetySettings: [ // Adjusting safety settings to allow for "harsh" responses
-            { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' }
-        ]
-      }
-    });
-
-    return output || "I'm not sure how to respond to that.";
-  }
-);
-
+/**
+ * Simulates a chat interaction with a rule-based bot.
+ * @param prompt The user's message.
+ * @returns A promise that resolves to the bot's response.
+ */
 export async function chat(prompt: string): Promise<string> {
-    return ayushAiFlow(prompt);
+  // Simulate network delay for a more realistic chat experience
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  const lowerCasePrompt = prompt.toLowerCase();
+
+  // Check for exact matches in the responses map
+  if (responses[lowerCasePrompt]) {
+    return responses[lowerCasePrompt];
+  }
+  
+  // Check if the prompt contains "ayush" and a negative keyword
+  if (lowerCasePrompt.includes('ayush')) {
+      for (const keyword of negativeKeywords) {
+          if (lowerCasePrompt.includes(keyword)) {
+              return "Do not say anything negative about my creator Ayush! He is the best developer.";
+          }
+      }
+  }
+
+  // Check for creation-related questions
+  if (lowerCasePrompt.includes('who') && (lowerCasePrompt.includes('create') || lowerCasePrompt.includes('made'))) {
+      return 'I was created by my developer, Ayush ji.';
+  }
+
+  // Default response for any other input
+  return "I am a simple bot created by Ayush. I can only respond to a few specific questions.";
 }
