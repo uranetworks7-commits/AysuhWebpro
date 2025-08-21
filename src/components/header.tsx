@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Info, Menu, X, Palette, ShoppingCart, LineChart, MessageSquarePlus, Youtube, Sparkles, Keyboard, FileText, QrCode, Share2, Atom, Wallet, HeartPulse } from "lucide-react";
+import { Home, Info, Menu, X, Palette, ShoppingCart, LineChart, MessageSquarePlus, Youtube, Sparkles, Keyboard, FileText, QrCode, Share2, Atom, Wallet, HeartPulse, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -14,6 +14,7 @@ const navLinks = [
   { href: "/dashboard", label: "Home", icon: Home },
   { href: "/dashboard/typing-test", label: "Typing Test", icon: Keyboard },
   { href: "/dashboard/resume-maker", label: "Document Maker", icon: FileText },
+  { href: "/dashboard/notes", label: "My Notes", icon: FileText },
   { href: "/dashboard/budget-planner", label: "Budget Planner", icon: Wallet },
   { href: "/dashboard/color-tools", label: "Diagram & Mind Map", icon: Share2 },
   { href: "/dashboard/periodic-table", label: "Periodic Table", icon: Atom },
@@ -22,6 +23,7 @@ const navLinks = [
   { href: "/dashboard/store", label: "Store", icon: ShoppingCart },
   { href: "/dashboard/trading", label: "Trading", icon: LineChart },
   { href: "/dashboard/ayush-ai", label: "Ayush AI", icon: Sparkles },
+  { href: "/dashboard/wallpapers", label: "Wallpapers", icon: ImageIcon },
   { href: "/dashboard/about", label: "About", icon: Info },
 ];
 
@@ -36,7 +38,7 @@ export default function Header() {
 
   const NavItems = () => (
     <>
-      {navLinks.map((link) => (
+      {navLinks.sort((a,b) => a.label > b.label ? 1: -1).map((link) => (
         <Link
           key={link.href}
           href={link.href}
@@ -62,7 +64,7 @@ export default function Header() {
           Ayush Pro Web
         </Link>
         <nav className="hidden items-center gap-2 md:flex">
-          <NavItems />
+          {/* This part can be populated with a few important links if needed */}
         </nav>
         <div className="flex items-center gap-2">
            <Button variant="outline" size="sm" onClick={handleFeedback}>
@@ -79,7 +81,7 @@ export default function Header() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0">
+            <SheetContent side="left" className="p-0 flex flex-col">
                 <SheetHeader className="flex-row items-center justify-between p-4 border-b">
                      <SheetTitle>
                         <Link href="/dashboard" className="text-lg font-bold text-primary" onClick={() => setIsMobileMenuOpen(false)}>
@@ -93,7 +95,7 @@ export default function Header() {
                       </Button>
                     </SheetClose>
                 </SheetHeader>
-              <nav className="mt-4 flex flex-col gap-2 p-4">
+              <nav className="flex-grow flex flex-col gap-2 p-4 overflow-y-auto">
                 <NavItems />
               </nav>
             </SheetContent>

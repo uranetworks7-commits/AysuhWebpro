@@ -13,17 +13,18 @@ import { Download, Image as ImageIcon, Wallpaper } from "lucide-react";
 interface WallpaperItem {
   url: string;
   name: string;
+  hint?: string;
 }
 
 const staticWallpapers: WallpaperItem[] = [
-    { url: "https://placehold.co/1920x1080.png", name: "Misty Mountains" },
-    { url: "https://placehold.co/1920x1080.png", name: "Vibrant Abstract" },
-    { url: "https://placehold.co/1920x1080.png", name: "Tokyo at Night" },
-    { url: "https://placehold.co/1920x1080.png", name: "Clean Geometry" },
-    { url: "https://placehold.co/1920x1080.png", name: "Cosmic Nebula" },
-    { url: "https://placehold.co/1920x1080.png", name: "Crashing Waves" },
-    { url: "https://placehold.co/1920x1080.png", name: "Lush Forest" },
-    { url: "https://i.ibb.co/6b0Cgzk/image.png", name: "Blue Technology Network" },
+    { url: "https://placehold.co/1920x1080.png", name: "Misty Mountains", hint: "misty mountains" },
+    { url: "https://placehold.co/1920x1080.png", name: "Vibrant Abstract", hint: "vibrant abstract" },
+    { url: "https://placehold.co/1920x1080.png", name: "Tokyo at Night", hint: "tokyo night" },
+    { url: "https://placehold.co/1920x1080.png", name: "Clean Geometry", hint: "clean geometry" },
+    { url: "https://placehold.co/1920x1080.png", name: "Cosmic Nebula", hint: "cosmic nebula" },
+    { url: "https://placehold.co/1920x1080.png", name: "Crashing Waves", hint: "crashing waves" },
+    { url: "https://placehold.co/1920x1080.png", name: "Lush Forest", hint: "lush forest" },
+    { url: "https://i.ibb.co/6b0Cgzk/image.png", name: "Blue Technology Network", hint: "technology network" },
 ];
 
 
@@ -52,6 +53,17 @@ export default function WallpapersPage() {
     window.open(imageUrl, "_blank");
   };
 
+  const handleDownload = (e: React.MouseEvent, wallpaper: WallpaperItem) => {
+    e.stopPropagation(); // Prevent the click from bubbling up to the CardContent
+    const link = document.createElement('a');
+    link.href = wallpaper.url;
+    link.download = `${wallpaper.name.replace(/ /g, "_")}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast({ title: "Download Started", description: `Downloading ${wallpaper.name}` });
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
@@ -71,27 +83,39 @@ export default function WallpapersPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {wallpapers.map((wallpaper) => {
-            const imageUrl = wallpaper.url;
-            return (
-              <Card key={wallpaper.name} className="overflow-hidden group">
+          {wallpapers.map((wallpaper) => (
+              <Card 
+                key={wallpaper.name} 
+                className="overflow-hidden group cursor-pointer"
+                onClick={() => handleImageClick(wallpaper)}
+              >
                 <CardContent 
-                    className="p-0 aspect-w-16 aspect-h-9 flex items-center justify-center bg-muted/30 cursor-pointer"
-                    onClick={() => handleImageClick(wallpaper)}>
-                    <Wallpaper className="h-16 w-16 text-muted-foreground transition-transform group-hover:scale-110" />
+                    className="p-0 aspect-w-16 aspect-h-9 flex items-center justify-center bg-muted/30 relative"
+                    data-ai-hint={wallpaper.hint}
+                >
+                    <Image
+                        src={wallpaper.url}
+                        alt={wallpaper.name}
+                        fill
+                        className="object-cover transition-transform group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority={true}
+                    />
+                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
                 </CardContent>
                 <CardFooter className="p-3 bg-muted/50 flex justify-between items-center">
                   <p className="text-sm font-medium truncate flex-1 pr-2">{wallpaper.name}</p>
-                  <Button asChild size="sm" variant="secondary">
-                    <a href={imageUrl} target="_blank" rel="noopener noreferrer" download={wallpaper.name}>
+                  <Button 
+                    size="sm" 
+                    variant="secondary"
+                    onClick={(e) => handleDownload(e, wallpaper)}
+                  >
                       <Download className="h-4 w-4 mr-2" />
                       Download
-                    </a>
                   </Button>
                 </CardFooter>
               </Card>
-            );
-          })}
+            ))}
         </div>
       )}
     </div>

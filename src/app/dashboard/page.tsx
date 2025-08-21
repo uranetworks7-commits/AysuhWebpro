@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom, Wallet, LineChart, Sparkles, HeartPulse } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom, Wallet, LineChart, Sparkles, HeartPulse, ImageIcon } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -61,6 +61,22 @@ export default function DashboardPage() {
             <p>Create and download professional documents with our easy-to-use tool.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/resume-maker">Open Document Maker</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>My Notes</CardTitle>
+              <CardDescription>Create & manage notes.</CardDescription>
+            </div>
+            <FileText className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>A simple tool to create, manage, and delete your personal notes.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/notes">Open Notes</Link>
             </Button>
           </CardContent>
         </Card>
@@ -173,6 +189,22 @@ export default function DashboardPage() {
             <p>Interact with a custom AI assistant built by Ayush.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/ayush-ai">Open Ayush AI</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Wallpapers</CardTitle>
+              <CardDescription>Browse wallpapers.</CardDescription>
+            </div>
+            <ImageIcon className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Explore and download from a collection of beautiful wallpapers.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/wallpapers">Browse Wallpapers</Link>
             </Button>
           </CardContent>
         </Card>
