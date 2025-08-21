@@ -99,7 +99,7 @@ export default function Home() {
         {showFeatures && (
             <div className="w-full max-w-5xl mt-12">
                 <h2 className="text-3xl font-bold text-center mb-8">Features</h2>
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     {features.map((feature) => (
                         <Card key={feature.title} className="hover:shadow-lg transition-shadow">
                             <CardHeader className="flex-row items-center gap-4">
