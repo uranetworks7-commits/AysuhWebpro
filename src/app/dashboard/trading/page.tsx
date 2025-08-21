@@ -83,17 +83,17 @@ export default function TradingPage() {
   };
 
   return (
-    <div className="space-y-6 dark">
+    <div className="space-y-6">
       <div className="flex items-center gap-4 text-foreground">
-        <LineChartIcon className="h-8 w-8 text-yellow-500" />
+        <LineChartIcon className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold text-yellow-500">Ayush Trade Simulator</h1>
+          <h1 className="text-3xl font-bold">Ayush Trade Simulator</h1>
           <p className="text-muted-foreground">Practice buying and selling in a simulated market.</p>
         </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
-        <Card className="md:col-span-2 bg-card text-card-foreground">
+        <Card className="md:col-span-2">
             <CardHeader>
                 <CardTitle>Market View (AYUSH/USD)</CardTitle>
                 <CardDescription>Live price action of AyushCoin.</CardDescription>
@@ -118,7 +118,7 @@ export default function TradingPage() {
         </Card>
 
         <div className="space-y-6">
-            <Card className="bg-card text-card-foreground">
+            <Card>
                 <CardHeader>
                     <CardTitle className="text-xl">Your Wallet</CardTitle>
                 </CardHeader>
@@ -141,7 +141,7 @@ export default function TradingPage() {
                     </div>
                 </CardContent>
             </Card>
-            <Card className="bg-card text-card-foreground">
+            <Card>
                 <CardHeader>
                     <CardTitle className="text-xl">Actions</CardTitle>
                 </CardHeader>
@@ -153,7 +153,7 @@ export default function TradingPage() {
         </div>
       </div>
 
-       <Card className="bg-card text-card-foreground">
+       <Card>
         <CardHeader>
           <CardTitle className="flex items-center"><History className="mr-2"/>Transaction History</CardTitle>
         </CardHeader>
@@ -161,7 +161,7 @@ export default function TradingPage() {
             <ScrollArea className="h-[200px] w-full">
                 <Table>
                     <TableHeader>
-                    <TableRow className="hover:bg-muted/50">
+                    <TableRow>
                         <TableHead>Type</TableHead>
                         <TableHead>Price</TableHead>
                         <TableHead>Time</TableHead>
@@ -169,13 +169,13 @@ export default function TradingPage() {
                     </TableHeader>
                     <TableBody>
                     {transactions.length > 0 ? transactions.map((tx, index) => (
-                        <TableRow key={index} className="hover:bg-muted/50">
-                            <TableCell className={tx.type === 'Buy' ? 'text-green-400' : 'text-red-400'}>{tx.type}</TableCell>
+                        <TableRow key={index}>
+                            <TableCell className={tx.type === 'Buy' ? 'text-green-500' : 'text-red-500'}>{tx.type}</TableCell>
                             <TableCell>${tx.price.toFixed(2)}</TableCell>
                             <TableCell>{tx.time}</TableCell>
                         </TableRow>
                     )) : (
-                        <TableRow className="hover:bg-muted/50">
+                        <TableRow>
                             <TableCell colSpan={3} className="text-center text-muted-foreground">No transactions yet.</TableCell>
                         </TableRow>
                     )}
