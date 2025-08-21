@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, MouseEvent, TouchEvent } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 import { Button } from "@/components/ui/button";
@@ -64,33 +65,45 @@ export default function PaintCanvas() {
     }
   }
 
-  const startDrawing = ({ nativeEvent }: React.MouseEvent<HTMLCanvasElement>) => {
-    const { offsetX, offsetY } = nativeEvent;
+  const getEventCoordinates = (event: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>) => {
+    if (!canvasRef.current) return { offsetX: 0, offsetY: 0 };
+    if ('touches' in event) {
+        const touch = event.touches[0];
+        const rect = canvasRef.current.getBoundingClientRect();
+        return { offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top };
+    }
+    return { offsetX: event.nativeEvent.offsetX, offsetY: event.nativeEvent.offsetY };
+  }
+
+  const startDrawing = (event: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>) => {
+    const { offsetX, offsetY } = getEventCoordinates(event);
     setIsDrawing(true);
     setStartPos({ x: offsetX, y: offsetY });
     takeSnapshot();
     
+    contextRef.current?.beginPath();
     if (tool === 'pencil' || tool === 'eraser') {
-      contextRef.current?.beginPath(); // Start path here
       contextRef.current?.moveTo(offsetX, offsetY);
     }
   };
 
   const finishDrawing = () => {
+    if (!isDrawing) return;
     setIsDrawing(false);
+    contextRef.current?.closePath();
     snapshotRef.current = null;
-    // Don't close path for pencil/eraser to allow continuous lines
   };
 
-  const draw = ({ nativeEvent }: React.MouseEvent<HTMLCanvasElement>) => {
+  const draw = (event: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>) => {
     if (!isDrawing || !contextRef.current || !startPos) return;
-    const { offsetX, offsetY } = nativeEvent;
+    event.preventDefault(); // prevent scrolling while drawing
+    const { offsetX, offsetY } = getEventCoordinates(event);
 
     if (tool === 'pencil' || tool === 'eraser') {
       contextRef.current?.lineTo(offsetX, offsetY);
       contextRef.current?.stroke();
     } else {
-        restoreSnapshot(); // Only restore for shapes
+        restoreSnapshot();
         if (tool === 'rectangle') {
             contextRef.current.strokeRect(startPos.x, startPos.y, offsetX - startPos.x, offsetY - startPos.y);
         } else if (tool === 'circle') {
@@ -142,13 +155,16 @@ export default function PaintCanvas() {
 
   return (
     <Card className="overflow-hidden">
-      <div className="relative w-full aspect-[16/9] bg-white">
+      <div className="relative w-full aspect-[16/9] bg-white touch-none">
         <canvas
           ref={canvasRef}
           onMouseDown={startDrawing}
           onMouseUp={finishDrawing}
           onMouseMove={draw}
           onMouseLeave={finishDrawing}
+          onTouchStart={startDrawing}
+          onTouchEnd={finishDrawing}
+          onTouchMove={draw}
           className={cn("w-full h-full", tool === 'pencil' || tool === 'eraser' ? 'cursor-crosshair' : 'cursor-default')}
         />
       </div>
