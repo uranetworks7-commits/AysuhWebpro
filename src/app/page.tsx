@@ -1,11 +1,10 @@
-
 "use client";
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode, Share2, Atom } from 'lucide-react';
+import { LineChart, Palette, Youtube, ShoppingCart, Info, FileText, Paintbrush, Image as ImageIcon, Sparkles, Keyboard, QrCode, Barcode, Share2, Atom, Wallet } from 'lucide-react';
 
 const features = [
   {
@@ -85,6 +84,12 @@ const features = [
     description: "Generate a QR code or barcode from any text or URL instantly.",
     icon: QrCode,
     href: "/dashboard/code-generator",
+  },
+  {
+    title: "Budget Planner",
+    description: "Track your income and expenses with a simple budget planner.",
+    icon: Wallet,
+    href: "/dashboard/budget-planner",
   },
 ];
 

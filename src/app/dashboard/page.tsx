@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom } from 'lucide-react';
+import { Home, Info, Palette, Youtube, Keyboard, FileText, Barcode, QrCode, Share2, Atom, Wallet, LineChart, Sparkles } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -117,7 +117,7 @@ export default function DashboardPage() {
           <CardHeader className="flex-row items-center justify-between">
             <div className="space-y-1">
               <CardTitle>Code Generators</CardTitle>
-              <CardDescription>Generate QR & Barcodes.</CardDescription>
+              <CardDescription>Generate QR &amp; Barcodes.</CardDescription>
             </div>
             <QrCode className="h-8 w-8 text-primary" />
           </CardHeader>
@@ -125,6 +125,54 @@ export default function DashboardPage() {
             <p>Create a QR code or barcode from any text or URL and download it.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/code-generator">Open Generators</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Budget Planner</CardTitle>
+              <CardDescription>Track income &amp; expenses.</CardDescription>
+            </div>
+            <Wallet className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>A simple tool to manage your personal budget and see a summary.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/budget-planner">Open Budget Planner</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Trading Simulator</CardTitle>
+              <CardDescription>Practice trading.</CardDescription>
+            </div>
+            <LineChart className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Simulate buying and selling in a mock market environment.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/trading">Open Trading Sim</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+         <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle>Ayush AI</CardTitle>
+              <CardDescription>Chat with an assistant.</CardDescription>
+            </div>
+            <Sparkles className="h-8 w-8 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <p>Interact with a custom AI assistant built by Ayush.</p>
+            <Button asChild className="mt-4">
+              <Link href="/dashboard/ayush-ai">Open Ayush AI</Link>
             </Button>
           </CardContent>
         </Card>
