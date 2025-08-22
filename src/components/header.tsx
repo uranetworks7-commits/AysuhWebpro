@@ -35,10 +35,6 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { toast } = useToast();
 
-  const handleFeedback = () => {
-    toast({ title: "Feedback", description: "Thank you for your feedback!" });
-  };
-
   const NavItems = () => (
     <>
       {navLinks.sort((a,b) => a.label > b.label ? 1: -1).map((link) => (
@@ -70,10 +66,6 @@ export default function Header() {
           {/* This part can be populated with a few important links if needed */}
         </nav>
         <div className="flex items-center gap-2">
-           <Button variant="outline" size="sm" onClick={handleFeedback}>
-             <MessageSquarePlus className="mr-2 h-4 w-4" />
-             Feedback
-           </Button>
             <Button variant="outline" size="sm" asChild>
                 <Link href="/dashboard/subscription"><Star className="mr-2 h-4 w-4" /> Subscription</Link>
             </Button>
