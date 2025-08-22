@@ -7,14 +7,19 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="flex-grow container mx-auto p-4 md:p-6">
-        {children}
-      </main>
-      <footer className="py-4 text-center text-sm text-muted-foreground">
-        Ayush Pro Web
-      </footer>
+    <div 
+      className="flex min-h-screen flex-col bg-cover bg-center bg-fixed"
+      style={{backgroundImage: "url('https://i.ibb.co/6b0Cgzk/image.png')"}}
+    >
+      <div className="flex min-h-screen flex-col bg-background/95">
+        <Header />
+        <main className="flex-grow container mx-auto p-4 md:p-6">
+          {children}
+        </main>
+        <footer className="py-4 text-center text-sm text-background/80">
+          Ayush Pro Web
+        </footer>
+      </div>
     </div>
   );
 }
