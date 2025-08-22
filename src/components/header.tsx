@@ -74,6 +74,9 @@ export default function Header() {
              <MessageSquarePlus className="mr-2 h-4 w-4" />
              Feedback
            </Button>
+            <Button variant="outline" size="sm" asChild>
+                <Link href="/dashboard/subscription"><Star className="mr-2 h-4 w-4" /> Subscription</Link>
+            </Button>
            <Button variant="outline" asChild>
                 <Link href="/">Exit Dashboard</Link>
             </Button>
