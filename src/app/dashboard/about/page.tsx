@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Info, UserCircle, MessageSquarePlus, Users, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,25 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function AboutPage() {
   const { toast } = useToast();
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    // This logic runs only on the client-side
+    const getVisitorCount = () => {
+      let count = localStorage.getItem("visitorCount");
+      let currentCount: number;
+      if (count) {
+        currentCount = parseInt(count, 10) + 1;
+      } else {
+        // Initialize with a random-ish starting number for a better look
+        currentCount = 1234567 + Math.floor(Math.random() * 100);
+      }
+      localStorage.setItem("visitorCount", currentCount.toString());
+      return currentCount;
+    };
+    
+    setVisitorCount(getVisitorCount());
+  }, []);
 
   const handleFeedback = () => {
     toast({ title: "Feedback Sent", description: "Thank you for your valuable feedback!" });
@@ -38,7 +58,9 @@ export default function AboutPage() {
             <CardTitle className="mt-4 text-2xl">Total Visitors</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">1,234,567</p>
+            <p className="text-3xl font-bold">
+              {visitorCount ? visitorCount.toLocaleString() : 'Loading...'}
+            </p>
           </CardContent>
         </Card>
 
