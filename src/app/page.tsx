@@ -112,7 +112,7 @@ export default function Home() {
   return (
     <div 
         className="flex flex-col min-h-screen bg-cover bg-center bg-fixed" 
-        style={{backgroundImage: "url('https://i.ibb.co/6b0Cgzk/image.png')"}}
+        style={{backgroundImage: "url('https://i.postimg.cc/3JtRbLsg/background-realistic-abstract-technology-particle-23-2148431735.jpg')"}}
     >
       <div className="flex flex-col min-h-screen bg-black/60">
         <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
