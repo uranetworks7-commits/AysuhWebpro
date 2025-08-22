@@ -32,8 +32,8 @@ export default function AboutPage() {
       if (count) {
         currentCount = parseInt(count, 10) + 1;
       } else {
-        // Initialize with a random-ish starting number for a better look
-        currentCount = 1234567 + Math.floor(Math.random() * 100);
+        // Initialize with 1 for the first visit
+        currentCount = 1;
       }
       localStorage.setItem("visitorCount", currentCount.toString());
       return currentCount;
