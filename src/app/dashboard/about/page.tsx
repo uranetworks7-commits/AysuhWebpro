@@ -27,14 +27,28 @@ export default function AboutPage() {
   useEffect(() => {
     // This logic runs only on the client-side
     const getVisitorCount = () => {
-      let count = localStorage.getItem("visitorCount");
+      const today = new Date().toDateString();
+      const lastVisitDate = localStorage.getItem("lastVisitDate");
+      let storedCount = localStorage.getItem("visitorCount");
       let currentCount: number;
-      if (count) {
-        currentCount = parseInt(count, 10) + 1;
+
+      if (storedCount) {
+        currentCount = parseInt(storedCount, 10);
       } else {
-        // Initialize with 1 for the first visit
-        currentCount = 1;
+        // Initialize with base count
+        currentCount = 238;
       }
+      
+      if (lastVisitDate !== today) {
+        // It's a new day, increase the count
+        const dailyIncrease = Math.floor(Math.random() * (70 - 10 + 1)) + 10;
+        currentCount += dailyIncrease;
+        localStorage.setItem("lastVisitDate", today);
+      }
+      
+      // Always increment for this specific visit
+      currentCount += 1;
+
       localStorage.setItem("visitorCount", currentCount.toString());
       return currentCount;
     };
