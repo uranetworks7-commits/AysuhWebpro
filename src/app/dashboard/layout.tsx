@@ -9,7 +9,7 @@ export default function DashboardLayout({
   return (
     <div 
       className="flex min-h-screen flex-col bg-cover bg-center bg-fixed"
-      style={{backgroundImage: "url('https://i.postimg.cc/jjnNmHPB/fhdmacro1072.jpg')"}}
+      style={{backgroundImage: "url('https://i.postimg.cc/05XkMLLd/fhdbirdseyeview170.jpg')"}}
     >
       <div className="flex min-h-screen flex-col bg-background/95">
         <Header />

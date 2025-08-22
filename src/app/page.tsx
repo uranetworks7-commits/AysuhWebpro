@@ -112,7 +112,7 @@ export default function Home() {
   return (
     <div 
         className="flex flex-col min-h-screen bg-cover bg-center bg-fixed" 
-        style={{backgroundImage: "url('https://i.postimg.cc/jjnNmHPB/fhdmacro1072.jpg')"}}
+        style={{backgroundImage: "url('https://i.postimg.cc/05XkMLLd/fhdbirdseyeview170.jpg')"}}
     >
       <div className="flex flex-col min-h-screen bg-black/60">
         <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
