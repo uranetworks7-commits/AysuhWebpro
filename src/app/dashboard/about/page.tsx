@@ -34,6 +34,10 @@ export default function AboutPage() {
 
       if (storedCount) {
         currentCount = parseInt(storedCount, 10);
+        // Reset if the number is unrealistically high from a previous implementation
+        if (currentCount > 1000000) {
+            currentCount = 238;
+        }
       } else {
         // Initialize with base count
         currentCount = 238;
@@ -46,8 +50,12 @@ export default function AboutPage() {
         localStorage.setItem("lastVisitDate", today);
       }
       
-      // Always increment for this specific visit
-      currentCount += 1;
+      // Always increment for this specific visit, but only if it's a new session
+      const sessionVisited = sessionStorage.getItem('sessionVisited');
+      if (!sessionVisited) {
+          currentCount += 1;
+          sessionStorage.setItem('sessionVisited', 'true');
+      }
 
       localStorage.setItem("visitorCount", currentCount.toString());
       return currentCount;
