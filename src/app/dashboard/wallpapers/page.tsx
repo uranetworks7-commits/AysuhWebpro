@@ -9,6 +9,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import LoadingSpinner from "@/components/loading-spinner";
 import { Download, Image as ImageIcon, Wallpaper } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import Link from "next/link";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 interface WallpaperItem {
   url: string;
@@ -33,6 +41,7 @@ export default function WallpapersPage() {
   const [wallpapers, setWallpapers] = useState<WallpaperItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
+  const { isSubscribed } = useAuth();
 
   useEffect(() => {
     // Simulate fetching data
@@ -55,7 +64,11 @@ export default function WallpapersPage() {
   };
 
   const handleDownload = (e: React.MouseEvent, wallpaper: WallpaperItem) => {
-    e.stopPropagation(); // Prevent the click from bubbling up to the CardContent
+    e.stopPropagation();
+    if (!isSubscribed) {
+        toast({ variant: "destructive", title: "Premium Feature", description: "You need to subscribe to download wallpapers." });
+        return;
+    }
     fetch(wallpaper.url)
         .then(response => response.blob())
         .then(blob => {
@@ -65,13 +78,45 @@ export default function WallpapersPage() {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            URL.revokeObjectURL(link.href); // Clean up
+            URL.revokeObjectURL(link.href);
             toast({ title: "Download Started", description: `Downloading ${wallpaper.name}` });
         })
         .catch(error => {
             console.error("Download failed:", error);
             toast({ variant: "destructive", title: "Download Failed", description: "Could not download the image." });
         });
+  }
+  
+  const DownloadButton = ({ wallpaper }: { wallpaper: WallpaperItem }) => {
+    const button = (
+        <Button 
+            size="sm" 
+            variant="secondary"
+            onClick={(e) => handleDownload(e, wallpaper)}
+            disabled={!isSubscribed}
+            className={!isSubscribed ? "cursor-not-allowed" : ""}
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Download
+          </Button>
+    );
+
+    if (isSubscribed) {
+        return button;
+    }
+
+    return (
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <span>{button}</span>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p>Subscribe to download</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
+    )
   }
 
   return (
@@ -80,7 +125,7 @@ export default function WallpapersPage() {
         <ImageIcon className="h-8 w-8 text-primary" />
         <div>
           <h1 className="text-3xl font-bold">Wallpapers & Files</h1>
-          <p className="text-muted-foreground">Browse and download from our collection.</p>
+          <p className="text-muted-foreground">Browse and download from our collection. Downloads are a premium feature.</p>
         </div>
       </div>
 
@@ -115,14 +160,7 @@ export default function WallpapersPage() {
                 </CardContent>
                 <CardFooter className="p-3 bg-muted/50 flex justify-between items-center">
                   <p className="text-sm font-medium truncate flex-1 pr-2">{wallpaper.name}</p>
-                  <Button 
-                    size="sm" 
-                    variant="secondary"
-                    onClick={(e) => handleDownload(e, wallpaper)}
-                  >
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
-                  </Button>
+                  <DownloadButton wallpaper={wallpaper} />
                 </CardFooter>
               </Card>
             ))}
