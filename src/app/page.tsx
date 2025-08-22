@@ -143,7 +143,7 @@ export default function Home() {
                   <Button asChild size="lg">
                       <Link href="/dashboard">Get Started</Link>
                   </Button>
-                  <Button size="lg" variant="outline" onClick={() => setShowFeatures(!showFeatures)}>
+                  <Button size="lg" variant="secondary" onClick={() => setShowFeatures(!showFeatures)}>
                       {showFeatures ? "Hide Functions" : "View all Functions"}
                   </Button>
               </div>
