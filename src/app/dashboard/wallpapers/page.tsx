@@ -25,6 +25,7 @@ const staticWallpapers: WallpaperItem[] = [
     { url: "https://placehold.co/1920x1080.png", name: "Crashing Waves", hint: "crashing waves" },
     { url: "https://placehold.co/1920x1080.png", name: "Lush Forest", hint: "lush forest" },
     { url: "https://i.ibb.co/6b0Cgzk/image.png", name: "Blue Technology Network", hint: "technology network" },
+    { url: "https://i.postimg.cc/jjnNmHPB/fhdmacro1072.jpg", name: "Abstract Tech Sphere", hint: "abstract sphere" },
 ];
 
 
