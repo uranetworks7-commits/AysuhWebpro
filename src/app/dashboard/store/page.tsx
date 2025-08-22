@@ -9,6 +9,13 @@ import Image from "next/image";
 
 const storeItems = [
   {
+    id: 'item-11',
+    name: "Singapore Trip",
+    price: 0.00,
+    icon: ImageIcon,
+    imageUrl: "https://i.postimg.cc/4dtqWLCN/image-search-1755828088223.webp",
+  },
+  {
     id: 'item-7',
     name: "Designer Shoes",
     price: 999.99,
@@ -115,11 +122,11 @@ export default function StorePage() {
             <CardFooter className="p-4 bg-muted/50 flex justify-between items-center">
               <div className="flex items-center font-bold text-primary">
                 <DollarSign className="h-5 w-5 mr-1" />
-                <span>{item.price.toFixed(2)}</span>
+                <span>{item.price > 0 ? item.price.toFixed(2) : 'Free'}</span>
               </div>
               <Button onClick={() => handleBuy(item.name)}>
                 <ShoppingCart className="h-4 w-4 mr-2" />
-                Buy
+                {item.price > 0 ? 'Buy' : 'Get'}
               </Button>
             </CardFooter>
           </Card>
