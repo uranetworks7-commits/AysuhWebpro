@@ -55,13 +55,22 @@ export default function WallpapersPage() {
 
   const handleDownload = (e: React.MouseEvent, wallpaper: WallpaperItem) => {
     e.stopPropagation(); // Prevent the click from bubbling up to the CardContent
-    const link = document.createElement('a');
-    link.href = wallpaper.url;
-    link.download = `${wallpaper.name.replace(/ /g, "_")}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    toast({ title: "Download Started", description: `Downloading ${wallpaper.name}` });
+    fetch(wallpaper.url)
+        .then(response => response.blob())
+        .then(blob => {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${wallpaper.name.replace(/ /g, "_")}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href); // Clean up
+            toast({ title: "Download Started", description: `Downloading ${wallpaper.name}` });
+        })
+        .catch(error => {
+            console.error("Download failed:", error);
+            toast({ variant: "destructive", title: "Download Failed", description: "Could not download the image." });
+        });
   }
 
   return (
