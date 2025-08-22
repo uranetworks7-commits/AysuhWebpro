@@ -7,6 +7,8 @@ import { Info, UserCircle, MessageSquarePlus, Users, Star, MessageSquare, User, 
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface Comment {
   id: string;
@@ -19,6 +21,7 @@ export default function AboutPage() {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
+  const [authorName, setAuthorName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -60,7 +63,7 @@ export default function AboutPage() {
     setTimeout(() => {
         const comment: Comment = {
             id: Date.now().toString(),
-            author: "Anonymous User", // In a real app, this would come from auth
+            author: authorName.trim() || "Anonymous User",
             text: newComment,
         };
         const updatedComments = [comment, ...comments];
@@ -71,6 +74,7 @@ export default function AboutPage() {
             console.error("Failed to save comments", e);
         }
         setNewComment("");
+        setAuthorName("");
         setIsSubmitting(false);
         toast({ title: "Success", description: "Your comment has been posted." });
     }, 500);
@@ -133,12 +137,27 @@ export default function AboutPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleCommentSubmit} className="space-y-4">
-            <Textarea 
-                placeholder="Write your comment here..." 
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                disabled={isSubmitting}
-            />
+            <div className="space-y-2">
+                <Label htmlFor="author-name">Your Name (Optional)</Label>
+                <Input 
+                    id="author-name"
+                    placeholder="Enter your name"
+                    value={authorName}
+                    onChange={(e) => setAuthorName(e.target.value)}
+                    disabled={isSubmitting}
+                />
+            </div>
+             <div className="space-y-2">
+                <Label htmlFor="comment-text">Comment</Label>
+                <Textarea 
+                    id="comment-text"
+                    placeholder="Write your comment here..." 
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    disabled={isSubmitting}
+                    required
+                />
+            </div>
             <Button type="submit" className="w-full" disabled={isSubmitting || !newComment.trim()}>
               <Send className="mr-2 h-4 w-4" /> Post Comment
             </Button>
