@@ -9,6 +9,34 @@ import Image from "next/image";
 
 const storeItems = [
   {
+    id: 'item-7',
+    name: "Designer Shoes",
+    price: 999.99,
+    icon: ImageIcon,
+    imageUrl: "https://i.postimg.cc/FF6vs0LT/image-search-1755827240095.jpg",
+  },
+  {
+    id: 'item-8',
+    name: "Luxury School Bag",
+    price: 750.00,
+    icon: ImageIcon,
+    imageUrl: "https://i.postimg.cc/CKJTy80H/image-search-1755827258133.jpg",
+  },
+  {
+    id: 'item-9',
+    name: "Private Plane",
+    price: 2500000.00,
+    icon: ImageIcon,
+    imageUrl: "https://i.postimg.cc/tTT09gC0/image-search-1755827426629.jpg",
+  },
+  {
+    id: 'item-10',
+    name: "Udai Pratap College",
+    price: 9999999.99,
+    icon: ImageIcon,
+    imageUrl: "https://i.postimg.cc/br740H08/image-search-1755827643989.jpg",
+  },
+  {
     id: 'item-1',
     name: "Classic Canvas",
     price: 49.99,
@@ -43,34 +71,6 @@ const storeItems = [
     name: "Color Wheel Guide",
     price: 9.99,
     icon: Palette,
-  },
-  {
-    id: 'item-7',
-    name: "Designer Shoes",
-    price: 999.99,
-    icon: ImageIcon,
-    imageUrl: "https://i.postimg.cc/FF6vs0LT/image-search-1755827240095.jpg",
-  },
-  {
-    id: 'item-8',
-    name: "Luxury School Bag",
-    price: 750.00,
-    icon: ImageIcon,
-    imageUrl: "https://i.postimg.cc/CKJTy80H/image-search-1755827258133.jpg",
-  },
-  {
-    id: 'item-9',
-    name: "Private Plane",
-    price: 2500000.00,
-    icon: ImageIcon,
-    imageUrl: "https://i.postimg.cc/tTT09gC0/image-search-1755827426629.jpg",
-  },
-  {
-    id: 'item-10',
-    name: "Udai Pratap College",
-    price: 9999999.99,
-    icon: ImageIcon,
-    imageUrl: "https://i.postimg.cc/br740H08/image-search-1755827643989.jpg",
   },
 ];
 
