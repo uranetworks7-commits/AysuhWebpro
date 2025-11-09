@@ -116,7 +116,7 @@ export default function DashboardPage() {
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader className="flex-row items-center justify-between">
             <div className="space-y-1">
-              <CardTitle>Ayush Tube</CardTitle>
+              <CardTitle>Video Tube</CardTitle>
               <CardDescription>Watch creative videos.</CardDescription>
             </div>
             <Youtube className="h-8 w-8 text-primary" />
@@ -124,7 +124,7 @@ export default function DashboardPage() {
           <CardContent>
             <p>Explore a curated collection of videos on digital art and creativity.</p>
             <Button asChild className="mt-4">
-              <Link href="/dashboard/ayush-tube">Open Ayush Tube</Link>
+              <Link href="/dashboard/video-tube">Open Video Tube</Link>
             </Button>
           </CardContent>
         </Card>
@@ -180,15 +180,15 @@ export default function DashboardPage() {
          <Card className="hover:shadow-lg transition-shadow">
           <CardHeader className="flex-row items-center justify-between">
             <div className="space-y-1">
-              <CardTitle>Ayush AI</CardTitle>
+              <CardTitle>X Tec AI</CardTitle>
               <CardDescription>Chat with an assistant.</CardDescription>
             </div>
             <Sparkles className="h-8 w-8 text-primary" />
           </CardHeader>
           <CardContent>
-            <p>Interact with a custom AI assistant built by Ayush.</p>
+            <p>Interact with a custom AI assistant.</p>
             <Button asChild className="mt-4">
-              <Link href="/dashboard/ayush-ai">Open Ayush AI</Link>
+              <Link href="/dashboard/ai-chat">Open AI Chat</Link>
             </Button>
           </CardContent>
         </Card>
@@ -250,7 +250,7 @@ export default function DashboardPage() {
             <Star className="h-8 w-8 text-primary" />
           </CardHeader>
           <CardContent>
-            <p>Unlock premium features by subscribing to Ayush Pro Web.</p>
+            <p>Unlock premium features by subscribing to X Tec Pro.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/subscription">Go Premium</Link>
             </Button>
@@ -266,7 +266,7 @@ export default function DashboardPage() {
             <Info className="h-8 w-8 text-primary" />
           </CardHeader>
           <CardContent>
-            <p>Find out more about the Ayush Canvas Hub and its features.</p>
+            <p>Find out more about the project and its features.</p>
             <Button asChild className="mt-4">
               <Link href="/dashboard/about">View About Page</Link>
             </Button>

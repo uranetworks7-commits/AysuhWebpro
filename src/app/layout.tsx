@@ -9,14 +9,9 @@ import { FirebaseProvider } from '@/components/firebase-provider';
 import { useState, useEffect } from 'react';
 import SplashScreen from '@/components/splash-screen';
 import OfflineIndicator from '@/components/offline-indicator';
+import { cn } from '@/lib/utils';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-
-// This metadata is static and will be used for the base of all pages.
-// export const metadata: Metadata = {
-//   title: 'Ayush Canvas Hub',
-//   description: 'Firebase-powered tools & storage',
-// };
 
 export default function RootLayout({
   children,
@@ -34,15 +29,15 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark">
       <head>
-        <title>Ayush Canvas Hub</title>
+        <title>X Tec</title>
         <meta name="description" content="Firebase-powered tools & storage" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body className={`${inter.variable} font-body antialiased`}>
+      <body className={cn(inter.variable, "font-body antialiased", "dark")}>
         <FirebaseProvider>
           <AuthProvider>
             {isSplashing ? <SplashScreen /> : children}

@@ -87,7 +87,7 @@ export default function TradingPage() {
       <div className="flex items-center gap-4 text-foreground">
         <LineChartIcon className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold">Ayush Trade Simulator</h1>
+          <h1 className="text-3xl font-bold">X Tec Trade Simulator</h1>
           <p className="text-muted-foreground">Practice buying and selling in a simulated market.</p>
         </div>
       </div>
@@ -95,8 +95,8 @@ export default function TradingPage() {
       <div className="grid gap-6 md:grid-cols-3">
         <Card className="md:col-span-2">
             <CardHeader>
-                <CardTitle>Market View (AYUSH/USD)</CardTitle>
-                <CardDescription>Live price action of AyushCoin.</CardDescription>
+                <CardTitle>Market View (XTEC/USD)</CardTitle>
+                <CardDescription>Live price action of X Tec Coin.</CardDescription>
             </CardHeader>
           <CardContent className="h-[400px] p-0 pr-4 pb-4">
             <ResponsiveContainer width="100%" height="100%">

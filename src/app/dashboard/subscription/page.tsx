@@ -36,7 +36,7 @@ export default function SubscriptionPage() {
       await subscribe(data.code);
       toast({
         title: "Success!",
-        description: "You have successfully subscribed to Ayush Pro Web.",
+        description: "You have successfully subscribed to X Tec Pro.",
       });
       form.reset();
     } catch (error: any) {
@@ -129,7 +129,7 @@ export default function SubscriptionPage() {
                       <FormItem>
                         <FormLabel>Subscription Code</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter Ayushvip.in" {...field} disabled={isLoading} />
+                          <Input placeholder="Enter subscription code" {...field} disabled={isLoading} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

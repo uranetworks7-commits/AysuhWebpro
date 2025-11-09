@@ -8,16 +8,15 @@ export default function DashboardLayout({
 }) {
   return (
     <div 
-      className="flex min-h-screen flex-col bg-cover bg-center bg-fixed"
-      style={{backgroundImage: "url('https://i.postimg.cc/05XkMLLd/fhdbirdseyeview170.jpg')"}}
+      className="flex min-h-screen flex-col"
     >
-      <div className="flex min-h-screen flex-col bg-background/95">
+      <div className="flex min-h-screen flex-col bg-background">
         <Header />
         <main className="flex-grow container mx-auto p-4 md:p-6">
           {children}
         </main>
-        <footer className="py-4 text-center text-sm text-background/80">
-          Ayush Pro Web
+        <footer className="py-4 text-center text-sm text-muted-foreground">
+          X Tec
         </footer>
       </div>
     </div>

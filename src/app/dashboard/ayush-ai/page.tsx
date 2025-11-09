@@ -7,14 +7,14 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import LoadingSpinner from "@/components/loading-spinner";
 import { Sparkles, Bot, User, Send } from "lucide-react";
-import { chat } from "@/ai/flows/ayush-ai-flow";
+import { chat } from "@/ai/flows/x-tec-ai-flow";
 
 interface Message {
   role: "user" | "bot";
   text: string;
 }
 
-export default function AyushAiPage() {
+export default function AiChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -53,8 +53,8 @@ export default function AyushAiPage() {
        <div className="flex items-center gap-4 mb-6">
         <Sparkles className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold">Ayush AI</h1>
-          <p className="text-muted-foreground">Your personal AI assistant, created by Ayush.</p>
+          <h1 className="text-3xl font-bold">X Tec AI</h1>
+          <p className="text-muted-foreground">Your personal AI assistant.</p>
         </div>
       </div>
       
@@ -107,7 +107,7 @@ export default function AyushAiPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && !isLoading && handleSendMessage()}
-              placeholder="Ask Ayush AI anything..."
+              placeholder="Ask X Tec AI anything..."
               disabled={isLoading}
             />
             <Button onClick={handleSendMessage} disabled={isLoading}>

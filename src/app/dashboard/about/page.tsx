@@ -69,7 +69,7 @@ export default function AboutPage() {
         if (savedComments) {
             setComments(JSON.parse(savedComments));
         } else {
-            setComments([{id: '1', author: 'Ayush', text: 'Welcome! Feel free to leave a comment.'}]);
+            setComments([{id: '1', author: 'Admin', text: 'Welcome! Feel free to leave a comment.'}]);
         }
     } catch (e) {
         console.error("Failed to load comments", e);
@@ -114,7 +114,7 @@ export default function AboutPage() {
         </CardHeader>
         <CardContent>
           <p className="text-lg text-muted-foreground">
-            This Website Is Created By Ayush (Developer Of Varanasi)
+            This Website Is Created By A Developer From Varanasi
           </p>
         </CardContent>
       </Card>

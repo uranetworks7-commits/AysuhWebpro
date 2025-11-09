@@ -53,7 +53,7 @@ export default function SignupPage() {
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader>
           <CardTitle className="text-2xl">Create an Account</CardTitle>
-          <CardDescription>Join Ayush Canvas Hub to start creating.</CardDescription>
+          <CardDescription>Join X Tec to start creating.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>

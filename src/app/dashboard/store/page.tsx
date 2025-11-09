@@ -97,7 +97,7 @@ export default function StorePage() {
       <div className="flex items-center gap-4">
         <ShoppingCart className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold">Ayush Store</h1>
+          <h1 className="text-3xl font-bold">X Tec Store</h1>
           <p className="text-muted-foreground">The finest tools for your creative journey.</p>
         </div>
       </div>

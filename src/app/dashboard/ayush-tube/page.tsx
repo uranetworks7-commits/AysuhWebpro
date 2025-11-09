@@ -14,7 +14,7 @@ const allVideos = [
   { id: 'W-fFHeTX70Q', title: 'lofi hip hop radio 📚 - beats to sleep/chill to' },
 ];
 
-export default function AyushTubePage() {
+export default function VideoTubePage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredVideos = allVideos.filter(video => 
@@ -27,8 +27,8 @@ export default function AyushTubePage() {
         <div className="flex items-center gap-4">
           <Youtube className="h-8 w-8 text-primary" />
           <div>
-            <h1 className="text-3xl font-bold">Ayush Tube</h1>
-            <p className="text-muted-foreground">A collection of videos from Dhruv Rathee.</p>
+            <h1 className="text-3xl font-bold">Video Tube</h1>
+            <p className="text-muted-foreground">A curated collection of videos.</p>
           </div>
         </div>
         <div className="relative w-full md:max-w-sm">

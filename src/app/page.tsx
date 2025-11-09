@@ -27,10 +27,10 @@ const features = [
     href: "/dashboard/trading",
   },
   {
-    title: "Ayush AI",
-    description: "Chat with a loyal AI assistant created by Ayush.",
+    title: "X Tec AI",
+    description: "Chat with an AI assistant.",
     icon: Sparkles,
-    href: "/dashboard/ayush-ai",
+    href: "/dashboard/ai-chat",
   },
   {
     title: "Diagram & Mind Map",
@@ -45,13 +45,13 @@ const features = [
     href: "/dashboard/periodic-table",
   },
   {
-    title: "Ayush Tube",
+    title: "Video Tube",
     description: "Explore a curated collection of videos on digital art and creativity.",
     icon: Youtube,
-    href: "/dashboard/ayush-tube",
+    href: "/dashboard/video-tube",
   },
     {
-    title: "Ayush Store",
+    title: "Store",
     description: "Browse a selection of the finest tools for your creative journey.",
     icon: ShoppingCart,
     href: "/dashboard/store",
@@ -111,14 +111,13 @@ export default function Home() {
 
   return (
     <div 
-        className="flex flex-col min-h-screen bg-cover bg-center bg-fixed" 
-        style={{backgroundImage: "url('https://i.postimg.cc/05XkMLLd/fhdbirdseyeview170.jpg')"}}
+        className="flex flex-col min-h-screen bg-background" 
     >
-      <div className="flex flex-col min-h-screen bg-black/60">
+      <div className="flex flex-col min-h-screen bg-background/80">
         <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container flex h-16 items-center justify-between">
             <Link href="/" className="text-lg font-bold text-primary">
-              Ayush Pro Web
+              X Tec
             </Link>
             <nav className="flex items-center gap-4">
               <Button asChild variant="ghost">
@@ -131,11 +130,11 @@ export default function Home() {
           </div>
         </header>
         <main className="flex-grow container mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
-          <div className="text-center text-white">
+          <div className="text-center text-foreground">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4">
-                  Welcome to Ayush Canvas Hub
+                  Welcome to X Tec
               </h1>
-              <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8">
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
                   Your creative space for amazing projects. 
                   Explore a suite of tools designed for creativity and fun.
               </p>
@@ -151,13 +150,13 @@ export default function Home() {
 
           {showFeatures && (
               <div className="w-full max-w-6xl mt-12">
-                  <h2 className="text-3xl font-bold text-center mb-8 text-white">Features</h2>
+                  <h2 className="text-3xl font-bold text-center mb-8 text-foreground">Features</h2>
                   <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                       {features.sort((a,b) => a.title > b.title ? 1: -1).map((feature) => (
-                          <Card key={feature.title} className="hover:shadow-lg transition-shadow bg-slate-900/80 border-slate-700">
+                          <Card key={feature.title} className="hover:shadow-lg transition-shadow bg-card border-border">
                               <CardHeader className="flex-row items-center gap-4">
                                   <feature.icon className="h-10 w-10 text-primary" />
-                                  <CardTitle className="text-white">{feature.title}</CardTitle>
+                                  <CardTitle className="text-foreground">{feature.title}</CardTitle>
                               </CardHeader>
                               <CardContent>
                                   <p className="text-muted-foreground">{feature.description}</p>
@@ -171,8 +170,8 @@ export default function Home() {
               </div>
           )}
         </main>
-        <footer className="py-4 text-center text-sm text-slate-400">
-          Ayush Pro Web
+        <footer className="py-4 text-center text-sm text-muted-foreground">
+          X Tec
         </footer>
       </div>
     </div>

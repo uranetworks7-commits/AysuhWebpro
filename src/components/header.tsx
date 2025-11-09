@@ -19,10 +19,10 @@ const navLinks = [
   { href: "/dashboard/color-tools", label: "Diagram & Mind Map", icon: Share2 },
   { href: "/dashboard/periodic-table", label: "Periodic Table", icon: Atom },
   { href: "/dashboard/code-generator", label: "Code Generators", icon: QrCode },
-  { href: "/dashboard/ayush-tube", label: "Ayush Tube", icon: Youtube },
+  { href: "/dashboard/video-tube", label: "Video Tube", icon: Youtube },
   { href: "/dashboard/store", label: "Store", icon: ShoppingCart },
   { href: "/dashboard/trading", label: "Trading", icon: LineChart },
-  { href: "/dashboard/ayush-ai", label: "Ayush AI", icon: Sparkles },
+  { href: "/dashboard/ai-chat", label: "AI Chat", icon: Sparkles },
   { href: "/dashboard/wallpapers", label: "Wallpapers", icon: ImageIcon },
   { href: "/dashboard/math-practice", label: "Math Practice", icon: Calculator },
   { href: "/dashboard/quiz-maker", label: "Quiz Maker", icon: HelpCircle },
@@ -60,7 +60,7 @@ export default function Header() {
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/dashboard" className="text-lg font-bold text-primary">
-          Ayush Pro Web
+          X Tec
         </Link>
         <nav className="hidden items-center gap-2 md:flex">
           {/* This part can be populated with a few important links if needed */}
@@ -83,7 +83,7 @@ export default function Header() {
                 <SheetHeader className="flex-row items-center justify-between p-4 border-b">
                      <SheetTitle>
                         <Link href="/dashboard" className="text-lg font-bold text-primary" onClick={() => setIsMobileMenuOpen(false)}>
-                            Ayush Pro Web
+                            X Tec
                         </Link>
                      </SheetTitle>
                     <SheetClose asChild>
