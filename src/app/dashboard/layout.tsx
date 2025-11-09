@@ -10,7 +10,7 @@ export default function DashboardLayout({
     <div 
       className="flex min-h-screen flex-col"
     >
-      <div className="flex min-h-screen flex-col bg-background">
+      <div className="flex min-h-screen flex-col bg-background/90">
         <Header />
         <main className="flex-grow container mx-auto p-4 md:p-6">
           {children}
