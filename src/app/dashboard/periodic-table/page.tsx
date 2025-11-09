@@ -45,7 +45,7 @@ export default function PeriodicTablePage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2">
             <div
-                className="grid gap-1"
+                className="grid gap-0.5"
                 style={{
                     gridTemplateColumns: "repeat(18, minmax(0, 1fr))",
                 }}
@@ -55,7 +55,7 @@ export default function PeriodicTablePage() {
                     key={element.number}
                     onMouseEnter={() => setSelectedElement(element)}
                     className={cn(
-                        "p-1.5 text-xs border border-border/50 rounded-sm cursor-pointer transition-all duration-150 hover:scale-110 hover:shadow-lg hover:z-10",
+                        "p-1 text-xs border border-border/20 rounded-sm cursor-pointer transition-all duration-150 hover:scale-125 hover:shadow-lg hover:z-10",
                         categoryColors[element.category] || "bg-gray-200 text-gray-900"
                     )}
                     style={{
@@ -63,9 +63,9 @@ export default function PeriodicTablePage() {
                         gridRow: element.ypos,
                     }}
                 >
-                    <div className="font-bold text-[0.6rem]">{element.number}</div>
-                    <div className="font-extrabold text-center text-sm">{element.symbol}</div>
-                    <div className="text-center text-[0.6rem] truncate">{element.name}</div>
+                    <div className="font-bold text-[0.5rem]">{element.number}</div>
+                    <div className="font-extrabold text-center text-xs">{element.symbol}</div>
+                    <div className="text-center text-[0.5rem] truncate">{element.name}</div>
                 </div>
                 ))}
             </div>
